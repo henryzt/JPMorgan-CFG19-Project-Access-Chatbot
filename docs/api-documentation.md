@@ -13,10 +13,10 @@ Two API categories:
 
 Main endpoints:
 
-    - User registration: `POST /register`
-    - Get supported university: `GET /supportedUniversities`
-    - Get university info: `GET /university/${universityName}`
-    - Get course info: `GET /university/${universityName}/course/${courseName}`
+- User registration: `POST /register`
+- Get supported university: `GET /supportedUniversities`
+- Get university info: `GET /university/${universityName}`
+- Get course info: `GET /university/${universityName}/course/${courseName}`
 
 Note url query parameters `${queryParameter}` are required to be filled in.
 
@@ -188,9 +188,9 @@ information to the end user in a easy-to-comprehend manner.
 
 Main endpoints:
 
-    - Match universities: `GET /match/universities`
-    - Match majors: `GET /match/majors`
-    - Match courses: `GET /match/courses`
+- Match universities: `GET /match/universities`
+- Match majors: `GET /match/majors`
+- Match courses: `GET /match/courses`
 
 ### Match Universities
 
