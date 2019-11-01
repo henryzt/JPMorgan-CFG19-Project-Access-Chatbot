@@ -2,7 +2,21 @@
 
 Team 14
 
+Two API categories:
+
+- Information API
+    - Request info about courses, universities and majors.
+- Match API
+    - Request a match to universities, majors and courses.
+
+
 ## Information API
+
+Main endpoints:
+    - User registration: `POST /register`
+    - Get supported university: `GET /supportedUniversities`
+    - Get university info: `GET /university/${universityName}`
+    - Get course info: `GET /university/${universityName}/course/${courseName}`
 
 Note url query parameters `${queryParameter}` are required to be filled in.
 
@@ -74,7 +88,7 @@ so we can track which user is who.
 
 #### Request Supported Universities
 
-`GET /universities`
+`GET /supportedUniversities`
 
 #### Returns
 
@@ -172,9 +186,14 @@ The Match API provides user tailored university and course recommendation.
 Based on the returned university and course, the API consumer can present this 
 information to the end user in a easy-to-comprehend manner.
 
+Main endpoints:
+    - Match universities: `GET /match/universities`
+    - Match majors: `GET /match/majors`
+    - Match courses: `GET /match/courses`
+
 ### Match Universities
 
-Send an `AccountInfo` JSON to `GET /match/university`:
+Send an `AccountInfo` JSON to `GET /match/universities`:
 
 ```typescript
 interface AccountInfo {
