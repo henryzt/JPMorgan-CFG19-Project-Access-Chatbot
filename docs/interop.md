@@ -174,7 +174,7 @@ information to the end user in a easy-to-comprehend manner.
 
 ### Match Universities
 
-Send a `AccountInfo` JSON to `GET /match/university`:
+Send an `AccountInfo` JSON to `GET /match/university`:
 
 ```typescript
 interface AccountInfo {
@@ -200,19 +200,51 @@ interface UniversityInfo {
 The API consumer can use the `UniversityInfo` to fetch their corresponding
 information with the Information API.
 
+### Match Major
+
+This is for a generic major, e.g. "Computer Science", not necessarily tied to
+a particular university or qualification type.
+
+Send an `AccountInfo` JSON to `GET /match/majors`:
+
+```typescript
+interface AccountInfo {
+    userId: uint;
+}
+```
+
 #### Returns
 
-`200 OK` with `MatchedCoursesInfo` response:
+`200 OK` with `MatchedMajorsInfo` response:
+
+```typescript
+interface MatchedMajorsInfo {
+    matchedMajors: List<MajorInfo>;
+}
+
+interface MajorInfo {
+    majorName: string;
+}
+```
+
+### Match Course
+
+This is for a specific University's specific course, e.g. 
+`UCL BSc Computer Science`.
+
+Send an `AccountInfo` JSON to `GET /match/courses`:
+
+#### Returns
+
+`200 OK` with `MatchedCoursesInfo` response.
 
 ```typescript
 interface MatchedCoursesInfo {
-    matchedCourses: List<CourseInfo>
+    matchedCourses: List<CourseInfo>;
 }
 
 interface CourseInfo {
     courseName: string;
-    qualificationType: QualificationType;
+    universityName: string;
 }
-
-type QualificationType = "Bachelors" | "Masters" | "other";
 ```
