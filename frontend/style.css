@@ -14,14 +14,36 @@ body{
 }
 
 .main{
-    width: 60%;
+    width: 50%;
     max-width: 1000px;
     margin: 0 auto;
     /* background: yellow; */
 }
 
+.bubble{
+    border-radius:20px;
+    padding: 10px 30px;
+    display:inline-block;
+    max-width: 70%;
+    margin-top: 7px;
+}
 
-img{
+.bubble_server{
+    background: white;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.14);
+}
+
+
+.logo{
     width: 210px;
 
+}
+.icon{
+    width: 40px;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.conversation{
+    margin: 30px 0;
 }

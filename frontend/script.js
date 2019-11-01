@@ -7,3 +7,11 @@ var app = new Vue({
       
     }
   })
+
+
+  Vue.component('bubble', {
+    props: ['sender', 'content'],
+    template: `
+        <div><div>  
+    `
+  })
