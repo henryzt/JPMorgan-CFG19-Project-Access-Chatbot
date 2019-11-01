@@ -2,7 +2,9 @@
 
 Team 14
 
-## Initial User Registration
+Note url query parameters `${queryParameter}` are required to be filled in.
+
+## Register User with Information
 
 A `User` should supply the following information:
 
@@ -20,8 +22,9 @@ can be empty, but none of the attributes may be missing.
 ```typescript
 interface UserInfo {
     highestEducation: EducationType;
-    currentSubjects: List<Subject>;
-    estimatedGrades: List<EstimatedGrade>;
+    subjects: List<Subject>;
+    // Either estimated, predicted or actual grades (after exams)
+    grades: List<GradeInfo>;
     homeCountry: CountryName;
     // If empty target countries -> any target country is acceptable.
     targetCountries: List<CountryName>;
@@ -32,11 +35,12 @@ interface UserInfo {
 type Subject = string;
 type CountryName = string;
 
-interface EstimatedGrade {
+interface GradeInfo {
     subject: Subject;
-    gradeType: EducationType;
-    letterGrade: string;
+    grade: Grade;
 }
+
+type Grade = string;
 
 type EducationType = "IB" | "A-Level" | "SAT" | "other";
 
@@ -46,10 +50,6 @@ interface Range {
     upper: uint;
 }
 ```
-
-## Provided Back-end REST API Endpoints
-
-Note `${queryParameter}` is required to be filled in.
 
 ### Request Supported Universities
 
