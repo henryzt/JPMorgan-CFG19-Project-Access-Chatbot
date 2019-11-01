@@ -2,7 +2,7 @@
 
 Team 14
 
-## Backend API endpoints
+## Information API
 
 Note url query parameters `${queryParameter}` are required to be filled in.
 
@@ -57,7 +57,16 @@ interface FinanceRange {
 
 #### Returns
 
-`201 Created` on success.
+`201 Created` on success. Returns a `AccountInfo` JSON response:
+
+```typescript
+interface AccountInfo {
+    userId: uint;
+}
+```
+
+When using the `GET /match` endpoint, the `userId` is a required parameter
+so we can track which user is who.
 
 `400 Bad Request` on malformed request.
 
@@ -156,3 +165,37 @@ interface EntranceTestInfo {
     minimumGrades: List<GradeInfo>;
 }
 ```
+
+## Match API
+
+The Match API provides user tailored university and course recommendation.
+Based on the returned university and course, the API consumer can present this 
+information to the end user in a easy-to-comprehend manner.
+
+### Match Universities
+
+Send a `AccountInfo` JSON to `GET /match/university`:
+
+```typescript
+interface AccountInfo {
+    userId: uint;
+}
+```
+
+#### Returns
+
+`200 OK` with `MatchedUniversitiesInfo` response:
+
+```typescript
+type MatchedUniversitiesInfo {
+    matchedUniversities: List<UniversityInfo>
+}
+
+interface UniversityInfo {
+    universityName: string;
+    country: string;
+}
+```
+
+The API consumer can use the `UniversityInfo` to fetch their corresponding
+information with the Information API.
