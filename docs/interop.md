@@ -21,10 +21,10 @@ can be empty, but none of the attributes may be missing.
 interface UserInfo {
     highestEducation: EducationType;
     currentSubjects: List<Subject>;
+    estimatedGrades: List<EstimatedGrade>;
     homeCountry: CountryName;
     // If empty target countries -> any target country is acceptable.
     targetCountries: List<CountryName>;
-    estimatedGrades: List<EstimatedGrade>;
     age: uint;
     acceptableFinanceRange: Range;
 }
@@ -47,18 +47,73 @@ interface Range {
 }
 ```
 
-## Required Data from Data Collectors
+## Provided REST API Endpoints
 
-- Entry requirements:
-    - Minimum grade (typical grade).
-    - Recognised education types (e.g. IB / A-Level / other).
-    - Language requirements:
-        - For each country:
-            - Recognized language exam
-            - Minimum language exam grade requirement
-    - Interview requirements.
-- Finance requirements:
-    - Course fees
-    - Available sponsorships
-- Visa requirements:
-    - For each country.
+Note `${queryParameter}` is required to be filled in.
+
+### Supported Universities
+
+#### Request Supported Universities
+
+`GET /universities`
+
+#### Returns
+
+`200 OK` in JSON format (`SupportedUniversities`):
+
+```typescript
+interface SupportedUniversities {
+    supportedUniversities: List<UniversityInfo>
+}
+
+interface UniversityInfo {
+    universityName: string;
+    country: string;
+}
+```
+
+### University Info
+
+#### Request University Info
+
+`GET /university/${univerityName}`
+
+#### Returns
+
+`200 OK` in JSON format (`UniversityInfo`):
+
+```typescript
+interface UniversityInfo {
+    universityName: string;
+    country: string;
+    availableSponsorships: List<SponsorshipInfo>;
+}
+```
+
+```typescript
+interface CourseInfo {
+    courseName: string;
+    // Recognized entry requirements
+    entryRequirements: List<EntryRequirement>;
+    financeRequirements: FinanceRequirement;
+    requiresInterview: boolean;
+    requiresAdditionalExams: boolean;
+}
+
+interface EntryRequirement {
+    educationType: EducationType;
+    minimumGrades: List<Grade>;
+}
+
+type EducationType = "IB" | "A-Level" | "SAT" | "other";
+
+interface FinanceRequirement {
+    courseAnnualFee: uint;
+}
+
+interface SponsorshipInfo {
+    sponsorshipName: string;
+    deductionAmount: uint;
+    details: string;
+}
+```
