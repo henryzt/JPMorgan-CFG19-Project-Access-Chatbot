@@ -245,6 +245,9 @@ interface MatchedCoursesInfo {
 
 interface CourseInfo {
     courseName: string;
+    qualificationType: QualificationType;
     universityName: string;
 }
+
+type QualificationType = "Bachelors" | "Masters" | "other";
 ```
