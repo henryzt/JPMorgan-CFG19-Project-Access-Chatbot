@@ -1,6 +1,6 @@
 # API Documentation
 
-Team 14
+Code for Good Team 14
 
 Two API categories:
 
