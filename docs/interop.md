@@ -14,7 +14,7 @@ A `User` should supply the following information:
 - Finance range (`FinanceRange: (lowerBound: int, higherBound: int)`).
 - High School education type (`EducationType: string`), e.g. `'IB', 'A-Level'`.
 
-The `POST /register` API will accept the following JSON. Some `List<string>`s
+The `POST /register` API will accept the `UserInfo` JSON. Some `List<string>`s
 can be empty, but none of the attributes may be missing.
 
 ```typescript
