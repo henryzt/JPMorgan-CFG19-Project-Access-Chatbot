@@ -2,7 +2,7 @@
   "name": "project-access-backend",
   "version": "0.1.0",
   "description": "Backend for Project Access, provides Information and Match APIs.",
-  "main": "index.js",
+  "main": "src/server.js",
   "repository": "https://github.com/Lon19/team-14",
   "author": "Team-14",
   "license": "MIT",
@@ -10,9 +10,11 @@
   "scripts": {
     "lint": "eslint -c .eslintrc.json --ext js src",
     "lint:list-diff": "prettier --list-different \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
-    "format:prettier": "prettier --write \"**/*.{js,md,json}\" \".*.{js,md,json}\""
+    "format:prettier": "prettier --write \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
+    "start": "nodemon src/server.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
@@ -26,6 +28,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
+    "nodemon": "^1.19.4",
     "prettier": "^1.18.2"
   },
   "husky": {
