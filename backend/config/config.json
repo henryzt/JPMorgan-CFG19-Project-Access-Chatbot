@@ -1,0 +1,8 @@
+{
+  "ip": "127.0.0.1",
+  "port": 8080,
+  "database": {
+    "host": "mongodb://127.0.0.1/",
+    "name": "project_access"
+  }
+}
