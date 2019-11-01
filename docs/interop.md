@@ -2,9 +2,11 @@
 
 Team 14
 
+## Backend API endpoints
+
 Note url query parameters `${queryParameter}` are required to be filled in.
 
-## Register User with Information
+### Register User with Information
 
 A `User` should supply the following information:
 
