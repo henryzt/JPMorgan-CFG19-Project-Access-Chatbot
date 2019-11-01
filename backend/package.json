@@ -7,6 +7,11 @@
   "author": "Team-14",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "lint": "eslint -c .eslintrc.json --ext js src",
+    "lint:list-diff": "prettier --list-different \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
+    "format:prettier": "prettier --write \"**/*.{js,md,json}\" \".*.{js,md,json}\""
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
@@ -19,6 +24,22 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
     "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "eslint",
+      "yarn run format:prettier"
+    ],
+    "*.{js,json,md}": [
+      "yarn run lint:list-diff"
+    ]
   }
 }
