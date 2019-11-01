@@ -4,15 +4,15 @@ Code for Good Team 14
 
 Two API categories:
 
-- Information API
+1. Information API
     - Request info about courses, universities and majors.
-- Match API
+2. Match API
     - Request a match to universities, majors and courses.
-
 
 ## Information API
 
 Main endpoints:
+
     - User registration: `POST /register`
     - Get supported university: `GET /supportedUniversities`
     - Get university info: `GET /university/${universityName}`
@@ -187,6 +187,7 @@ Based on the returned university and course, the API consumer can present this
 information to the end user in a easy-to-comprehend manner.
 
 Main endpoints:
+
     - Match universities: `GET /match/universities`
     - Match majors: `GET /match/majors`
     - Match courses: `GET /match/courses`
