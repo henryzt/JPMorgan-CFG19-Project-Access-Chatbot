@@ -3,16 +3,25 @@ body{
 }
 
 .header{
-    width:230px;
-    height:70px;
+    display: inline-block;
     background:white;
     box-shadow:0px 3px 6px rgba(0,0,0,0.13);
     border-radius:50px;
+    padding: 20px;
+    position: fixed;
+    top: 30px;
+    left: 30px;
 }
 
-.header .logo{
-    background-image: url('img/logo.png');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
+.main{
+    width: 60%;
+    max-width: 1000px;
+    margin: 0 auto;
+    /* background: yellow; */
+}
+
+
+img{
+    width: 210px;
+
 }
