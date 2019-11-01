@@ -106,11 +106,17 @@ interface SponsorshipInfo {
 }
 ```
 
-### Get Course Information (for a Specific University)
+### Course Information (for a Specific University)
+
+#### Request Course Information
 
 Get info for a course for a specified university.
 
 `GET /university/${universityName}/course/${couseName}`
+
+#### Returns
+
+`200 OK` with `CourseInfo` JSON.
 
 ```typescript
 interface CourseInfo {
