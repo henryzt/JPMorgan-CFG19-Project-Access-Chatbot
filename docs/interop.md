@@ -6,7 +6,9 @@ Team 14
 
 Note url query parameters `${queryParameter}` are required to be filled in.
 
-### Register User with Information
+### User Registration
+
+#### Register a New User
 
 A `User` should supply the following information:
 
@@ -53,7 +55,13 @@ interface FinanceRange {
 }
 ```
 
-### Request Supported Universities
+#### Returns
+
+`201 Created` on success.
+
+`400 Bad Request` on malformed request.
+
+### Supported Universities
 
 #### Request Supported Universities
 
