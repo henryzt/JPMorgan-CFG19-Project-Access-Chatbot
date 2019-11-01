@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 // eslint-disable-next-line no-unused-vars
 const connection = createConnection({
-  uri: config.get('database.ip') + config.get('database.port'),
+  uri: config.get('database.host') + config.get('database.databaseName'),
   poolSize: config.get('database.poolSize'),
   userName: config.get('database.userName'),
   password: config.get('database.password')

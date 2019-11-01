@@ -3,6 +3,9 @@
   "port": 8080,
   "database": {
     "host": "mongodb://127.0.0.1/",
-    "name": "project_access"
+    "databaseName": "project_access",
+    "userName": "root",
+    "password": "password",
+    "poolSize": 4
   }
 }

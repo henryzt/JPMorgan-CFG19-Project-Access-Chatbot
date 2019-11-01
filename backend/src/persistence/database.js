@@ -5,8 +5,8 @@ const createConnection = ({ uri, poolSize, userName, password }) =>
     poolSize,
     user: userName,
     pass: password,
-    useMongoClient: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
 
 export default createConnection;

@@ -20,6 +20,7 @@ const configSchema = {
     env: 'PORT'
   },
   database: {
+    doc: 'Database settings.',
     host: {
       doc: 'Database hostname / IP.',
       format: '*',
@@ -35,18 +36,21 @@ const configSchema = {
     userName: {
       doc: 'MongoDB user name.',
       format: String,
+      default: '',
       env: 'DB_USERNAME'
     },
     password: {
       doc: 'MongoDB password.',
       format: '*',
+      default: '',
       sensitive: true,
       env: 'DB_PASSWORD'
     },
     poolSize: {
       doc: 'Number of simulatenous connections.',
       format: 'nat',
-      default: 4
+      default: 4,
+      env: 'DB_POOL_SIZE'
     }
   },
   logging: {
@@ -88,7 +92,7 @@ const config = convict(configSchema);
 
 // Load configuration file. Default location:
 // '${PROJECT_ROOT}/config/config.json'
-config.loadFile('../config/config.json');
+config.loadFile('config/config.json');
 
 // Validate configuration file.
 config.validate({ allowed: 'strict' });

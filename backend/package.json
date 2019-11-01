@@ -2,7 +2,7 @@
   "name": "project-access-backend",
   "version": "0.1.0",
   "description": "Backend for Project Access, provides Information and Match APIs.",
-  "main": "src/server.js",
+  "main": "src/index.js",
   "repository": "https://github.com/Lon19/team-14",
   "author": "Team-14",
   "license": "MIT",
@@ -11,8 +11,10 @@
     "lint": "eslint -c .eslintrc.json --ext js src",
     "lint:list-diff": "prettier --list-different \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
     "format:prettier": "prettier --write \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
-    "start:dev": "DEBUG=server:debug nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "DEBUG=server:debug NODE_ENV=development nodemon src/index.js --exec babel-node",
+    "build": "babel src -d dist --source-maps",
+    "serve": "NODE_ENV=production node dist/index.js",
+    "clean": "node clean-dist.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -24,6 +26,11 @@
     "rotating-file-stream": "^1.4.6"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
     "eslint": "6.6.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "^6.5.0",
@@ -35,7 +42,9 @@
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "nodemon": "^1.19.4",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "^3.0.0"
   },
   "husky": {
     "hooks": {
@@ -50,5 +59,8 @@
     "*.{js,json,md}": [
       "yarn run lint:list-diff"
     ]
+  },
+  "engines": {
+    "node": ">=12"
   }
 }
