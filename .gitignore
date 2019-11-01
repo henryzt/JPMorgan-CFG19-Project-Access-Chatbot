@@ -4,6 +4,13 @@
 *.o
 *.obj
 
+# JSON
+json.hpp
+
+# IDEA
+.idea
+
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -36,3 +43,5 @@ install_manifest.txt
 
 # Custom
 build/
+team-14
+team-14.cbp
