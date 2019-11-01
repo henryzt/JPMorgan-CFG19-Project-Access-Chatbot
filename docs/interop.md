@@ -47,11 +47,11 @@ interface Range {
 }
 ```
 
-## Provided REST API Endpoints
+## Provided Back-end REST API Endpoints
 
 Note `${queryParameter}` is required to be filled in.
 
-### Supported Universities
+### Request Supported Universities
 
 #### Request Supported Universities
 
@@ -72,9 +72,9 @@ interface UniversityInfo {
 }
 ```
 
-### University Info
+### University Information
 
-#### Request University Info
+#### Request University Information
 
 `GET /university/${univerityName}`
 
@@ -88,32 +88,55 @@ interface UniversityInfo {
     country: string;
     availableSponsorships: List<SponsorshipInfo>;
 }
-```
-
-```typescript
-interface CourseInfo {
-    courseName: string;
-    // Recognized entry requirements
-    entryRequirements: List<EntryRequirement>;
-    financeRequirements: FinanceRequirement;
-    requiresInterview: boolean;
-    requiresAdditionalExams: boolean;
-}
-
-interface EntryRequirement {
-    educationType: EducationType;
-    minimumGrades: List<Grade>;
-}
-
-type EducationType = "IB" | "A-Level" | "SAT" | "other";
-
-interface FinanceRequirement {
-    courseAnnualFee: uint;
-}
 
 interface SponsorshipInfo {
     sponsorshipName: string;
     deductionAmount: uint;
     details: string;
+}
+```
+
+### Get Course Information (for a Specific University)
+
+Get info for a course for a specified university.
+
+`GET /university/${universityName}/course/${couseName}`
+
+```typescript
+interface CourseInfo {
+    universityName: string;
+    courseName: string;
+    qualificationType: QualificationType;
+    // Recognized entry requirements
+    entryRequirements: List<EntryRequirement>;
+    financeRequirements: FinanceRequirement;
+    requiresInterview: boolean;
+    requiresEntranceTests: boolean;
+    entranceTests: List<EntranceTestInfo>;
+}
+
+type QualificationType = "Bachelors" | "Masters" | "other";
+
+interface EntryRequirement {
+    educationType: EducationType;
+    minimumGrades: List<GradeInfo>;
+}
+
+type EducationType = "IB" | "A-Level" | "SAT" | "other";
+
+interface GradeInfo {
+    courseOrComponentName: string;
+    minimumGrade: Grade;
+};
+
+type Grade = string;
+
+interface FinanceRequirement {
+    courseAnnualFee: uint;
+}
+
+interface EntranceTestInfo {
+    testName: string;
+    minimumGrades: List<GradeInfo>;
 }
 ```
