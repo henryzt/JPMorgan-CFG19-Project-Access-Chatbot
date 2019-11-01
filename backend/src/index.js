@@ -10,6 +10,8 @@ import debugLogger from './debug/debug-logger';
 
 import createConnection from './persistence/database';
 
+import registrationRouter from './api/registration/registration.router';
+
 const app = express();
 
 // Body parser for parsing request bodies.
@@ -39,8 +41,8 @@ const accessLogger = createLogger({
 
 app.use(accessLogger);
 
-// Routes
-// TODO: add routes
+// Mount routes
+app.use('/register', registrationRouter);
 
 // Server
 const ip = config.get('ip');
