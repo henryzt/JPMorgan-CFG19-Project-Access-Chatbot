@@ -76,7 +76,7 @@ typings/
 # nuxt.js build output
 .nuxt
 
-# react / gatsby 
+# react / gatsby
 public/
 
 # vuepress build output
@@ -98,3 +98,7 @@ public/
 ### WebStorm ###
 
 .idea/
+
+### Configuration ###
+
+config/config.json
