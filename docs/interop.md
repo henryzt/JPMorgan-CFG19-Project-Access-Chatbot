@@ -29,7 +29,7 @@ interface UserInfo {
     // If empty target countries -> any target country is acceptable.
     targetCountries: List<CountryName>;
     age: uint;
-    acceptableFinanceRange: Range;
+    acceptableFinanceRange: FinanceRange;
 }
 
 type Subject = string;
@@ -45,7 +45,7 @@ type Grade = string;
 type EducationType = "IB" | "A-Level" | "SAT" | "other";
 
 // Required: lower < upper
-interface Range {
+interface FinanceRange {
     lower: uint;
     upper: uint;
 }
