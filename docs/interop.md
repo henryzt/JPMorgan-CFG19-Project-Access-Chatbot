@@ -187,7 +187,7 @@ interface AccountInfo {
 `200 OK` with `MatchedUniversitiesInfo` response:
 
 ```typescript
-type MatchedUniversitiesInfo {
+interface MatchedUniversitiesInfo {
     matchedUniversities: List<UniversityInfo>
 }
 
@@ -199,3 +199,20 @@ interface UniversityInfo {
 
 The API consumer can use the `UniversityInfo` to fetch their corresponding
 information with the Information API.
+
+#### Returns
+
+`200 OK` with `MatchedCoursesInfo` response:
+
+```typescript
+interface MatchedCoursesInfo {
+    matchedCourses: List<CourseInfo>
+}
+
+interface CourseInfo {
+    courseName: string;
+    qualificationType: QualificationType;
+}
+
+type QualificationType = "Bachelors" | "Masters" | "other";
+```
