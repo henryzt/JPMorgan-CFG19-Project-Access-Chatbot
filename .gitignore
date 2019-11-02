@@ -45,3 +45,4 @@ install_manifest.txt
 build/
 team-14
 team-14.cbp
+.DS_Store
