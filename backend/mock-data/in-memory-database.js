@@ -23,7 +23,8 @@ const MockUsers = [
 const InMemoryDatabase = {
   data: {
     uuid: 1,
-    users: MockUsers
+    users: MockUsers,
+    universityCourseInfo: {}
   }
 };
 
@@ -58,4 +59,8 @@ const registerHandler = db => async ({
   return ['success', uuid];
 };
 
-export { InMemoryDatabase, registerHandler };
+const getSupportedUniversitiesHandler = db => async () => {
+  return ['success', Object.keys(db.data.universityCourseInfo)];
+};
+
+export { InMemoryDatabase, registerHandler, getSupportedUniversitiesHandler };
