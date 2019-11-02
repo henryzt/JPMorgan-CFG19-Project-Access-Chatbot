@@ -90,7 +90,7 @@ var app = new Vue({
                 }
             }, 2*timeout);
             
-            setTimeout(() => {app.editing = true;}, 4*timeout)
+            setTimeout(() => {if(that.questions[that.currentQ]) app.editing = true;}, 4*timeout)
             setTimeout(() => {document.getElementById("msg").focus()}, 6*timeout)
         }, 12*timeout);
         
@@ -102,6 +102,7 @@ var app = new Vue({
 
     processResult: function(){
         let that = this;
+        app.editing = false;
         app.bubbleList.push({content:"Thank you! Just a moment while I am processing your information..."});
         this.userInfo.TargetCountry = this.seperateComma(this.userInfo.TargetCountry)
         this.userInfo.subjects = this.seperateComma(this.userInfo.subjects)
@@ -114,6 +115,7 @@ var app = new Vue({
                                             lower: 0,
                                             upper: this.userInfo.acceptableFinanceRange
                                         }
+        console.log(this.userInfo)
     }
 
   }

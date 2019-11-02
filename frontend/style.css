@@ -1,6 +1,7 @@
 body{
     background:rgba(248,248,248);
     background:linear-gradient(180deg,#e0dcc04f 0%,#f5f8fa 100%);
+    background-attachment: fixed;
 }
 
 .header{
