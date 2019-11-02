@@ -23,11 +23,12 @@
             <div v-for="item in bubbleList">
                 <bubble :isclient="item.isclient" :content="item.content" :isloading="item.isloading"></bubble>
             </div>
+            <div id="empty"></div>
 
         </div>
 
         <div :class="{textbox:true, text_box_highlight: editing}">
-            <form @submit="submitForm">
+            <form @submit.prevent="submitForm">
                 <div style="padding:0 30px;">
                     <div class="mdl-textfield mdl-js-textfield">
                         <input class="mdl-textfield__input" :disabled="!editing" type="text" id="msg" v-model="message">
