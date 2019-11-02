@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const MockUsers = [
   {
     userId: 1,
@@ -79,15 +80,62 @@ const courseNameMatches = targetCourseName => ([courseName]) =>
 
 const getCourseInfoHandler = db => async ({ targetUniversityName, targetCourseName }) => {
   const universityEntries = Object.entries(db.data.universityCourseInfo);
-  const [universityInfo] = universityEntries.filter(universityNameMatches(targetUniversityName));
-  const [universityName, courses] = universityInfo;
+  const [[universityName, courses]] = universityEntries.filter(
+    universityNameMatches(targetUniversityName)
+  );
 
   const course = courses ? courses.filter(courseNameMatches(targetCourseName)) : [];
 
-  const [courseInfo] = course;
-  const [courseName, qualificationType, duration, score] = courseInfo;
+  const [[courseName, qualificationType, duration, score]] = course;
 
   return ['success', { universityName, courseName, qualificationType, duration, score }];
+};
+
+const getRankedCoursesHandler = db => async () => {
+  const universityEntries = Object.entries(db.data.universityCourseInfo);
+  const nonNullUniversityEntries = universityEntries.filter(([_, courseInfo]) => {
+    return courseInfo !== null;
+  });
+
+  const sortUniversityCourses = courseInfo =>
+    courseInfo.sort((a, b) => {
+      const [_a1, _a2, _a3, scoreA] = a;
+      const [_b1, _b2, _b3, scoreB] = b;
+
+      if (scoreA > scoreB) return -1;
+      if (scoreA < scoreB) return 1;
+      return 0;
+    });
+
+  const orderedCourseUniversityEntries = nonNullUniversityEntries.map(
+    ([universityName, courseInfo]) => {
+      return {
+        universityName,
+        courseInfo: sortUniversityCourses(courseInfo)
+      };
+    }
+  );
+
+  // We retain the highest ranked course of each university.
+  const highestCourseUniversities = orderedCourseUniversityEntries.map(
+    ({ universityName, courseInfo }) => {
+      const [courseName, qualificationType, duration, rating] = courseInfo[0];
+      return {
+        universityName,
+        course: { courseName, qualificationType, duration, rating }
+      };
+    }
+  );
+
+  const universitiesSortedByCourse = highestCourseUniversities.sort((a, b) => {
+    if (a.course.rating > b.course.rating) return -1;
+    if (a.course.rating < b.course.rating) return 1;
+    return 0;
+  });
+
+  const topThreeCourses = universitiesSortedByCourse.slice(0, 3);
+
+  return ['success', topThreeCourses];
 };
 
 export {
@@ -95,5 +143,6 @@ export {
   registerHandler,
   getSupportedUniversitiesHandler,
   getUniversityInfoHandler,
-  getCourseInfoHandler
+  getCourseInfoHandler,
+  getRankedCoursesHandler
 };
