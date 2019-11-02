@@ -5,7 +5,6 @@ const RegistrationInfoSchema = {
   properties: {
     highestEducation: {
       type: 'string',
-      enum: ['IB', 'A-Level', 'SAT', 'Other'],
       required: true
     },
     subjects: {
