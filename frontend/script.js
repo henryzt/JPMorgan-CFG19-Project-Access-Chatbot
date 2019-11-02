@@ -37,12 +37,12 @@ var app = new Vue({
     questions: [
                {content: "Hello! How can I help you with your uni application today?", bindData: "Query"},
                {content: "No problem! First, could you tell me which country are you from?", bindData: "HomeCountry"},
-               {content: "Which country do you want to study in? It can be multiple ones!", bindData: "TargetCountry"},
+               {content: "Which country do you want to study in? It can be more than one!", bindData: "TargetCountry"},
                {content: "What are the subjects you are currently studying? This will help us find your perfect match!", bindData: "Subject"},
-               {content: "Now the tricky one, what is your estimated grade?", bindData: "Grade"},
-               {content: "And what is the education system you are in?", bindData: "EducationType"},
+               {content: "Great. Now the tricky one, what is your estimated grade?", bindData: "Grade"},
+               {content: "Thanks. And what is the education system you are in?", bindData: "EducationType"},
                {content: "Lastly, what's your preferred finance range?", bindData: "FinanceRange"},
-               {content: "Finally, what's your age?", bindData: "Age"},
+               {content: "And Finally, what's your age?", bindData: "Age"},
             ],
 
     userInfo: new Object(),
