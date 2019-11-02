@@ -4,9 +4,6 @@
 *.o
 *.obj
 
-# JSON
-json.hpp
-
 # IDEA
 .idea
 
