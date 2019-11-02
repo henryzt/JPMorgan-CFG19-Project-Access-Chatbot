@@ -1,4 +1,4 @@
-const timeout = 100
+const timeout = 1
 
 Vue.component('bubble', {
     props: ['isclient', 'content','isloading'],
@@ -25,7 +25,7 @@ var app = new Vue({
     },
     methods: {
         submitForm: function(msg){
-            msg? this.message = msg : null;
+            if(typeof msg == 'string') this.message = msg;
             this.suggestion = null
             this.editing = false
             this.bubbleList.push({content:this.message, isclient:true})
@@ -38,6 +38,43 @@ var app = new Vue({
     }
   })
 
+
+
+
+  let universityChecker = {
+    handleCurrent:function(msg){
+        
+        setTimeout(() => {this.goToNextQuestion()}, 1*timeout)
+    },
+
+    push:function(content){
+
+        app.bubbleList.push(content);
+
+        window.scrollTo({ top: 9000, behavior: 'smooth' })
+    },
+
+    question : [{content:"What university are you looking for?"}, {content:"What course are you looking for?"}],
+    questionNum : 0,
+
+    goToNextQuestion: function(overrideQ){
+        
+        let that = this
+        app.bubbleList.push({isloading:true})
+        window.scrollTo({ top: 9000, behavior: 'smooth' })
+
+        this.questionNum = this.questionNum == 0? 1 : 0;
+        //get typing effect
+        setTimeout(() => {
+            app.bubbleList.pop()
+            overrideQ? that.push(overrideQ): that.push(that.question[that.questionNum]);
+            
+            setTimeout(() => {app.editing = true;}, 4*timeout)
+            setTimeout(() => {document.getElementById("msg").focus()}, 6*timeout)
+        }, 12*timeout);
+        
+    },
+  }
 
 
 
@@ -130,11 +167,19 @@ var app = new Vue({
         axios.post('http://127.0.0.1:8080/register', this.userInfo)
             .then((response) => {
                 console.log(response);
+                
+                setTimeout(() => {
+                    app.userId = response.data.userId
+                    app.bubbleList = []
+                    universityChecker.goToNextQuestion({content:"Thank you for your information! So, what name of the university are you looking for?"})
+                }, 2*timeout)
+                
             }, (error) => {
                 console.log(error);
             });
     }
 
   }
+
 
   registration.goToNextQuestion()
