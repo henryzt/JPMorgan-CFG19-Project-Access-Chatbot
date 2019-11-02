@@ -12,7 +12,7 @@
     "lint:list-diff": "prettier --list-different \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
     "format:prettier": "prettier --write \"**/*.{js,md,json}\" \".*.{js,md,json}\"",
     "start": "DEBUG=server:debug NODE_ENV=development nodemon src/index.js --exec babel-node",
-    "build": "babel src -d dist --source-maps",
+    "build": "babel src -d dist",
     "serve": "NODE_ENV=production node dist/index.js",
     "clean": "node clean-dist.js"
   },
@@ -21,6 +21,7 @@
     "convict": "^5.2.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
+    "express-jsonschema": "^1.1.6",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
     "rotating-file-stream": "^1.4.6"

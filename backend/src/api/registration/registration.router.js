@@ -1,9 +1,13 @@
 import express from 'express';
 
-import registrationHandler from './registration.handler';
+import expressJsonSchema from 'express-jsonschema';
 
-const registrationRouter = express.Router;
+import { registrationHandler, RegistrationInfoSchema } from './registration.handler';
 
-registrationRouter.post('/', registrationHandler);
+const { validate } = expressJsonSchema;
+
+const registrationRouter = express.Router();
+
+registrationRouter.post('/', validate({ body: RegistrationInfoSchema }), registrationHandler);
 
 export default registrationRouter;

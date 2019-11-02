@@ -10,12 +10,13 @@ import debugLogger from './debug/debug-logger';
 
 import createConnection from './persistence/database';
 
+import badRequestHandler from './error-handling/bad-request-handler';
+
 import registrationRouter from './api/registration/registration.router';
 
 const app = express();
 
 // Body parser for parsing request bodies.
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // eslint-disable-next-line no-unused-vars
@@ -25,11 +26,6 @@ const connection = createConnection({
   userName: config.get('database.userName'),
   password: config.get('database.password')
 });
-
-// Debug logging only when we're not in production environment.
-if (config.get('env') !== 'production') {
-  app.use(debugLogger);
-}
 
 const accessLogger = createLogger({
   fileName: config.get('logging.fileName'),
@@ -43,6 +39,14 @@ app.use(accessLogger);
 
 // Mount routes
 app.use('/register', registrationRouter);
+
+// Bad request handler for malformed JSON request.
+app.use(badRequestHandler);
+
+// Debug logging only when we're not in production environment.
+if (config.get('env') !== 'production') {
+  app.use(debugLogger);
+}
 
 // Server
 const ip = config.get('ip');

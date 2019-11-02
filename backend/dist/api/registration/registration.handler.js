@@ -1,4 +1,10 @@
-const RegistrationInfoSchema = {
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.RegistrationInfoSchema = exports.registrationHandler = void 0;
+var RegistrationInfoSchema = {
   type: 'object',
   properties: {
     highestEducation: {
@@ -64,10 +70,12 @@ const RegistrationInfoSchema = {
     }
   }
 };
+exports.RegistrationInfoSchema = RegistrationInfoSchema;
 
-const registrationHandler = (request, response) => {
-  response.status(200);
+var registrationHandler = function registrationHandler(request, response) {
+  console.log(request.body);
   response.json(request.body);
 };
 
-export { registrationHandler, RegistrationInfoSchema };
+exports.registrationHandler = registrationHandler;
+//# sourceMappingURL=registration.handler.js.map

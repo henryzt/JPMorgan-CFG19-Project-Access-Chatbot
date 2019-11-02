@@ -91,6 +91,9 @@ public/
 # DynamoDB Local files
 .dynamodb/
 
+# Source maps
+**/*.map
+
 ### VSCode ###
 
 .vscode/
