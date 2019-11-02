@@ -88,7 +88,7 @@ let registration = {
                 setTimeout(() => {
                     app.userId = response.data.userId
                     app.bubbleList = []
-                    universityChecker.goToNextQuestion({content:"Thank you for your information! So, what name of the university are you looking for?"})
+                    getMatches();
                 }, 2*timeout)
                 
             }, (error) => {

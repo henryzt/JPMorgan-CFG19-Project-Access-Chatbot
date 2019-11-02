@@ -1,3 +1,25 @@
+function getMatches(){
+    let counter = 1;
+    app.bubbleList.push({content:"Thank you for your information! Here are our few matches for you:"})
+    axios.get('http://127.0.0.1:8080/match/ranked-courses')
+            .then((response) => {
+                console.log(response);
+                response.data.forEach(function(data) {
+                    console.log(data)
+                    let match = `You can do ${data.course.courseName} at ${data.universityName}, which will get you a ${data.course.qualificationType}.`
+                    console.log(match)
+
+                    setTimeout(() => { app.bubbleList.push({content:match}) }, counter*2*timeout)
+                    counter++
+                });
+                    
+                setTimeout(() => {universityChecker.goToNextQuestion()}, 10*timeout)
+
+            }, (error) => {
+                console.log(error);
+            });
+}
+
 let universityChecker = {
     university: null,
     course: null,

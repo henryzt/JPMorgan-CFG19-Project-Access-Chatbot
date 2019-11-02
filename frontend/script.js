@@ -1,4 +1,4 @@
-const timeout = 1
+const timeout = 100
 
 Vue.component('bubble', {
     props: ['isclient', 'content','isloading'],
@@ -6,7 +6,7 @@ Vue.component('bubble', {
         <div class="conversation" :class="{client_right_align:isclient}" >
             <img src="img/icon.png" v-if="!isclient" class="icon">
                 <div :class="{bubble:true, bubble_server:!isclient, bubble_client:isclient, bubble_loading:isloading, bubble_bounce:!isloading && !isclient}">
-                    {{isloading ? 'typing...' : content}}
+                    {{isloading ? 'typing...' : (content?content:'')}}
                 </div>
         </div>
 
