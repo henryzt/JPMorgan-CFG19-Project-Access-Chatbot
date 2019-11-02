@@ -18,11 +18,39 @@ function getMatches(){
             }, (error) => {
                 console.log(error);
             });
+
+    
 }
 
 let universityChecker = {
     university: null,
     course: null,
+
+    interval: null,
+
+    checkUniTimer: function(){
+        let that =this
+        if(this.interval) clearInterval(this.interval)
+        this.interval = setInterval(() => {
+            if(that.uniList.length==0){
+                that.requestUniversityList();
+                return
+            }
+
+            if(app.message){
+                let reg = new RegExp(app.message, 'i');
+                console.log(reg)
+                app.suggestion = that.uniList.filter(function(uni) {
+                    if (uni.match(reg)) {
+                        console.log(uni)
+                        return uni;
+                    }
+                }).slice(0, 6);
+                window.scrollTo({ top: 9000, behavior: 'smooth' })
+            }
+        }, 1000)
+    },
+
 
     handleCurrent:function(msg){
         if(msg){
@@ -38,11 +66,11 @@ let universityChecker = {
         window.scrollTo({ top: 9000, behavior: 'smooth' })
     },
 
-    question : [{content:"Any other university are you looking for?"}, {content: "Type any university name for their full courses"}, {content:"What another one?"}],
+    question : [{content:"Any other university are you looking for?"}, {content: "Type any other university name for their full courses"}, {content:"What another one?"}],
     questionNum : 2,
 
     goToNextQuestion: function(overrideQ){
-        
+        this.checkUniTimer()
         let that = this
         app.bubbleList.push({isloading:true})
         window.scrollTo({ top: 9000, behavior: 'smooth' })
@@ -57,6 +85,19 @@ let universityChecker = {
             setTimeout(() => {document.getElementById("msg").focus()}, 6*timeout)
         }, 12*timeout);
         
+    },
+
+    uniList: [],
+
+    requestUniversityList: function(){
+        axios.get('http://127.0.0.1:8080/supportedUniversities')
+        .then((response) => {
+            console.log(response);
+            this.uniList = response.data.supportedUniversities
+
+        }, (error) => {
+            console.log(error);
+        });
     },
 
     requestUniversity: function(uni){
@@ -74,11 +115,12 @@ let universityChecker = {
 
 
                 response.data.data[0][1].forEach(function(data) {
+                    
                     console.log(data)
                     let course = `${data[0]} - ${data[1]}`
                     console.log(course)
 
-                    setTimeout(() => { app.bubbleList.push({content:course}) }, counter*2*timeout)
+                    setTimeout(() => { app.bubbleList.push({content:course});window.scrollTo({ top: 9000, behavior: 'smooth' }); }, counter*2*timeout)
                     counter++
                 });
                     
