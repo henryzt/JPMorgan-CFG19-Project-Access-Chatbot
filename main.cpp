@@ -25,12 +25,22 @@ void json_test () {
 
 struct Course {
     string name;
+    string qualification;
+    double duration;
+
+    Course (string cn, string cq, double cd) : name(cn), qualification(cq), duration(cd) { }
+
 };
 
 struct University {
     string name;
     vector<Course> cs;
+
     University (string s) : name(s) { }
+
+    void add_course (string cn, string cq, double cd) {
+        cs.emplace_back(cn, cq, cd);
+    }
 };
 
 int main(int argc, char** argv) {
@@ -49,7 +59,7 @@ int main(int argc, char** argv) {
 
     vector<University> unis;
 
-    for (int i = 1; i <= 5; i++) {
+    for (int i = 1; i <= 2; i++) {
         req_body_json["options"]["paging"]["pageNumber"] = i;
         //cout << req_body_json.dump() << endl;
         auto response = cpr::Post(cpr::Url(ucas_endpoint), cpr::Body(req_body_json.dump()),
@@ -61,8 +71,28 @@ int main(int argc, char** argv) {
         }
     }
 
+    req_body_json["options"]["paging"]["pageNumber"] = 0;
+    req_body_json["options"]["paging"]["pageSize"] = 50;
+    for (auto& u : unis) {
+        cout << u.name << endl;
+        req_body_json["filters"]["providers"] = {u.name};
+        auto response = cpr::Post(cpr::Url(ucas_endpoint), cpr::Body(req_body_json.dump()),
+                                  cpr::Header{{"Content-Type", "application/json"}});
+        auto response_json = nlohmann::json::parse(response.text);
+        cout << response_json.dump() << endl;
+        auto course_array = response_json["providers"][0]["courses"];
+        for (int j = 0; j < course_array.size(); j++) {
+            cout << course_array[j]["courseTitle"] << " " << course_array[j]["options"][0]["outcomeQualification"]["caption"] << " " << course_array[j]["options"][0]["duration"]["quantity"] << endl;
+            if (course_array[j]["options"][0]["duration"]["quantity"] == nullptr) continue;
+            u.add_course(course_array[j]["courseTitle"], course_array[j]["options"][0]["outcomeQualification"]["caption"], course_array[j]["options"][0]["duration"]["quantity"]);
+        }
+    }
+
     for (auto u : unis) {
         cout << u.name << endl;
+        for (auto c : u.cs) {
+            cout << c.name << " " << c.qualification << " " << c.duration << endl;
+        }
     }
 
     return 0;
