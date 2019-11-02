@@ -85,9 +85,9 @@ const getCourseInfoHandler = db => async ({ targetUniversityName, targetCourseNa
   const course = courses ? courses.filter(courseNameMatches(targetCourseName)) : [];
 
   const [courseInfo] = course;
-  const [courseName, qualificationType, duration] = courseInfo;
+  const [courseName, qualificationType, duration, score] = courseInfo;
 
-  return ['success', { universityName, courseName, qualificationType, duration }];
+  return ['success', { universityName, courseName, qualificationType, duration, score }];
 };
 
 export {
