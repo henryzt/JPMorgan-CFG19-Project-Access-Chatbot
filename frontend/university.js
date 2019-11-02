@@ -113,17 +113,26 @@ let universityChecker = {
 
                 app.bubbleList.push({content:response.data.data[0][0]})
 
+                if(response.data.data[0][1]){
+                    response.data.data[0][1].forEach(function(data) {
+                        if(counter > 30) return
+                        if(counter == 30){
+                            setTimeout(() => { 
+                                app.bubbleList.push({content:`There are ${response.data.data[0][1].length} courses in total, course search function is coming soon, stay tuned!`});
+                            }, 31*2*timeout)
+                        }
+                        
+                        console.log(data)
+                        let course = `${data[0]} - ${data[1]}`
+                        console.log(course)
 
-                response.data.data[0][1].forEach(function(data) {
-                    
-                    console.log(data)
-                    let course = `${data[0]} - ${data[1]}`
-                    console.log(course)
+                        setTimeout(() => { app.bubbleList.push({content:course});scrollToBottom(); }, counter*2*timeout)
+                        counter++
+                    });
+                }else{
+                    app.bubbleList.push({content:"Sorry, We couldn't find any course informations for this university."});
+                }
 
-                    setTimeout(() => { app.bubbleList.push({content:course});scrollToBottom(); }, counter*2*timeout)
-                    counter++
-                });
-                    
                 setTimeout(() => {this.goToNextQuestion()}, (counter+2)*2*timeout)
 
             }, (error) => {
