@@ -1,5 +1,6 @@
 body{
     background:rgba(248,248,248);
+    background:linear-gradient(180deg,#e0dcc04f 0%,#f5f8fa 100%);
 }
 
 .header{
@@ -137,7 +138,7 @@ body{
     }
     50% {
       transform: scale(1.2);
-      box-shadow: 0px 1px 30px rgba(255, 77, 77, 0.3);
+      box-shadow: 0px 1px 30px rgba(255, 169, 77, 0.3);
 
     }
     100% {

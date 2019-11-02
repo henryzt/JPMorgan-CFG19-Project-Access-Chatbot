@@ -43,7 +43,8 @@ var app = new Vue({
                {content: "What are the subjects you are currently studying? This will help us find your perfect match!", continue: true},
                {content: "Just type and use comma to seperate them.", bindData: "Subject"},
                {content: "Great Choice!", continue: true},
-               {content: "Now the tricky part, what is your estimated grade of each subject?", bindData: "Grade"},
+               {content: "Now the tricky part, what is your estimated grade of each subject?", continue: true},
+               {content: "Use comma to seperate them, respectively to the order of the subjects you entered above.", bindData: "Grade"},
                {content: "Thanks. And what is the education system you are in?", bindData: "EducationType"},
                {content: "Lastly, what's your preferred finance range?", bindData: "FinanceRange"},
                {content: "And Finally, what's your age?", bindData: "Age"},
@@ -62,6 +63,10 @@ var app = new Vue({
 
     push:function(){
         this.currentQ++;
+        if(this.currentQ > this.questions.length - 1){
+            this.processResult()
+            return
+        }
         app.bubbleList.push(this.questions[this.currentQ]);
         window.scrollTo({ top: 9000, behavior: 'smooth' })
     },
@@ -86,6 +91,10 @@ var app = new Vue({
             setTimeout(() => {document.getElementById("msg").focus()}, 600)
         }, 1200);
         
+    },
+
+    processResult: function(){
+        app.bubbleList.push("Thank you! Just a moment while I am finding a best match for you...");
     }
 
   }
