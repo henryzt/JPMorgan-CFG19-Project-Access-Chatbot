@@ -1,3 +1,5 @@
+const timeout = 0
+
 Vue.component('bubble', {
     props: ['isclient', 'content','isloading'],
     template: `
@@ -56,24 +58,23 @@ var app = new Vue({
 
     handleCurrent:function(msg){
         this.userInfo[this.questions[this.currentQ].bindData] = msg;
-        setTimeout(() => {this.goToNextQuestion()}, 1500)
+        setTimeout(() => {this.goToNextQuestion()}, 15*timeout)
         
         
     },
 
     push:function(){
         this.currentQ++;
-        
+        if(this.currentQ > this.questions.length - 1){
+            this.processResult()
+            return
+        }
         app.bubbleList.push(this.questions[this.currentQ]);
         window.scrollTo({ top: 9000, behavior: 'smooth' })
     },
 
     goToNextQuestion: function(){
-        if(this.currentQ > this.questions.length - 1){
-            console.log("end")
-            this.processResult()
-            return
-        }
+        
         app.bubbleList.push({isloading:true})
         window.scrollTo({ top: 9000, behavior: 'smooth' })
         
@@ -84,14 +85,14 @@ var app = new Vue({
             let that =this
             let timer = setInterval(function () {
                 that.push();
-                if (!that.questions[that.currentQ].continue) {
+                if (!that.questions[that.currentQ] || !that.questions[that.currentQ].continue) {
                     clearInterval(timer);
                 }
-            }, 200);
+            }, 2*timeout);
             
-            setTimeout(() => {app.editing = true;}, 400)
-            setTimeout(() => {document.getElementById("msg").focus()}, 600)
-        }, 1200);
+            setTimeout(() => {app.editing = true;}, 4*timeout)
+            setTimeout(() => {document.getElementById("msg").focus()}, 6*timeout)
+        }, 12*timeout);
         
     },
 
@@ -100,17 +101,18 @@ var app = new Vue({
     },
 
     processResult: function(){
+        let that = this;
         app.bubbleList.push({content:"Thank you! Just a moment while I am processing your information..."});
-        this.userInfo.TargetCountry = this.seperateComma(userInfo.TargetCountry)
-        this.userInfo.subjects = this.seperateComma(userInfo.subjects)
-        this.userInfo.grades = this.seperateComma(userInfo.grades)
+        this.userInfo.TargetCountry = this.seperateComma(this.userInfo.TargetCountry)
+        this.userInfo.subjects = this.seperateComma(this.userInfo.subjects)
+        this.userInfo.grades = this.seperateComma(this.userInfo.grades)
                                 .map(function(e, i) {
-                                    return {grade: e,subject: userInfo.subjects[i]};
+                                    return {grade: e, subject: that.userInfo.subjects[i]};
                                 });
           
         this.userInfo.acceptableFinanceRange = {
                                             lower: 0,
-                                            upper: userInfo.acceptableFinanceRange
+                                            upper: this.userInfo.acceptableFinanceRange
                                         }
     }
 
