@@ -1,0 +1,1 @@
+{"searchTerm":"","filters":{"academicYearId":"2020","destinations":["Undergraduate"],"providers":[],"schemes":[],"subjects":[],"qualifications":[],"attendanceTypes":[],"acceleratedDegrees":false},"options":{"sort":[{"direction":"a-z","name":"provider"}],"paging":{"pageNumber":1,"pageSize":15}}}
