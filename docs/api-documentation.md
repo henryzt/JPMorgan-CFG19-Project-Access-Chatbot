@@ -135,32 +135,8 @@ Get info for a course for a specified university.
 interface CourseInfo {
     universityName: string;
     courseName: string;
-		duration: uint;   	
-}
-
-type QualificationType = "Bachelors" | "Masters" | "other";
-
-interface EntryRequirement {
-    educationType: EducationType;
-    minimumGrades: List<GradeInfo>;
-}
-
-type EducationType = "IB" | "A-Level" | "SAT" | "other";
-
-interface GradeInfo {
-    courseOrComponentName: string;
-    minimumGrade: Grade;
-};
-
-type Grade = string;
-
-interface FinanceRequirement {
-    courseAnnualFee: uint;
-}
-
-interface EntranceTestInfo {
-    testName: string;
-    minimumGrades: List<GradeInfo>;
+	  qualificationType: string;
+		duration: uint;
 }
 ```
 
@@ -249,9 +225,7 @@ interface MatchedCoursesInfo {
 
 interface CourseInfo {
     courseName: string;
-    qualificationType: QualificationType;
+    qualificationType: string;
     universityName: string;
 }
-
-type QualificationType = "Bachelors" | "Masters" | "other";
 ```
