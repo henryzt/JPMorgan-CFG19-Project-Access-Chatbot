@@ -63,4 +63,16 @@ const getSupportedUniversitiesHandler = db => async () => {
   return ['success', Object.keys(db.data.universityCourseInfo)];
 };
 
-export { InMemoryDatabase, registerHandler, getSupportedUniversitiesHandler };
+const getUniversityInfoHandler = db => async universityName => {
+  const entries = Object.entries(db.data.universityCourseInfo);
+  const nameMatches = ([name, _value]) =>
+    name.toLowerCase().trim() === universityName.toLowerCase().trim();
+  return ['success', entries.filter(nameMatches)];
+};
+
+export {
+  InMemoryDatabase,
+  registerHandler,
+  getSupportedUniversitiesHandler,
+  getUniversityInfoHandler
+};
