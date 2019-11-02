@@ -27,13 +27,13 @@
         </div>
 
         <div :class="{textbox:true, text_box_highlight: editing}">
-            <form action="#">
+            <form @submit="submitForm">
                 <div style="padding:0 30px;">
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="msg" v-model="msg">
+                        <input class="mdl-textfield__input" type="text" id="msg" v-model="message">
                         <label class="mdl-textfield__label" for="msg">Type your message here…</label>
                     </div>
-                    <button class="mdl-button mdl-js-button mdl-button--icon">
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon">
                             <i class="material-icons">send</i>
                     </button>
                 </div>

@@ -16,10 +16,19 @@ var app = new Vue({
     el: '#app',
     data: {
       bubbleList: [],
-      editing: false
+      userId: null,
+      editing: false,
+      message: "",
     },
     methods: {
-      
+        submitForm: function(){
+            this.editing = false
+            this.bubbleList.push({content:this.message, sender:'client'})
+            if(!this.userId){
+                registration.handleCurrent(this.message);
+            }
+            this.message = ""
+        }
     }
   })
 
@@ -36,7 +45,15 @@ var app = new Vue({
                {content: "Finally, what's your age?", bindData: "Age"},
             ],
 
+    userInfo: new Object(),
+
     currentQ: -1,
+
+    handleCurrent:function(msg){
+        this.userInfo[this.questions[this.currentQ].bindData] = msg;
+        this.goToNextQuestion();
+        
+    },
 
     goToNextQuestion: function(){
         app.bubbleList.push({isloading:true})
