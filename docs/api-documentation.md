@@ -24,21 +24,10 @@ Note url query parameters `${queryParameter}` are required to be filled in.
 
 #### Register a New User
 
-A `User` should supply the following information:
-
-- Current subjects (`List<Subject>`, `Subject: string`).
-- Home Country (`HomeCountry: string`).
-- Target Country (`TargetCountry: Optional<string>`).
-- Estimated Grade (`Grade: string`).
-- Age (`Age: { x : int | 0 < x <= 100 }`).
-- Finance range (`FinanceRange: (lowerBound: int, higherBound: int)`).
-- High School education type (`EducationType: string`), e.g. `'IB', 'A-Level'`.
-
-The `POST /register` API will accept the `UserInfo` JSON. Some `List<string>`s
-can be empty, but none of the attributes may be missing.
+The `POST /register` API will accept the `RegistrationInfo` JSON.
 
 ```typescript
-interface UserInfo {
+interface RegistrationInfo {
     highestEducation: EducationType;
     subjects: List<Subject>;
     // Either estimated, predicted or actual grades (after exams)
@@ -50,8 +39,9 @@ interface UserInfo {
     acceptableFinanceRange: FinanceRange;
 }
 
+type EducationType = "IB" | "A-Level" | "SAT" | "other";
+
 type Subject = string;
-type CountryName = string;
 
 interface GradeInfo {
     subject: Subject;
@@ -60,7 +50,7 @@ interface GradeInfo {
 
 type Grade = string;
 
-type EducationType = "IB" | "A-Level" | "SAT" | "other";
+type CountryName = string;
 
 // Required: lower < upper
 interface FinanceRange {
