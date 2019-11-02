@@ -23,6 +23,16 @@ void json_test () {
     cout << json.dump(4) << endl;
 }
 
+struct Course {
+    string name;
+};
+
+struct University {
+    string name;
+    vector<Course> cs;
+    University (string s) : name(s) { }
+};
+
 int main(int argc, char** argv) {
     //json_test();
 
@@ -37,18 +47,23 @@ int main(int argc, char** argv) {
 
     auto req_body_json = nlohmann::json::parse(req_body);
 
-    //cout << req_body_json.dump() << endl;
+    vector<University> unis;
 
-    freopen("dataset.json", "w", stdout);
-
-    for (int i = 1; i <= 24; i++) {
+    for (int i = 1; i <= 5; i++) {
         req_body_json["options"]["paging"]["pageNumber"] = i;
         //cout << req_body_json.dump() << endl;
         auto response = cpr::Post(cpr::Url(ucas_endpoint), cpr::Body(req_body_json.dump()),
                                   cpr::Header{{"Content-Type", "application/json"}});
-        cout << response.text << endl;
+        auto response_json = nlohmann::json::parse(response.text);
+        for (int j = 0; j < 15; j++) {
+            if (response_json["providers"][j]["name"] == nullptr) break;
+            else unis.emplace_back(static_cast<string>(response_json["providers"][j]["name"]));
+        }
     }
 
-    //fclose(stdout);
+    for (auto u : unis) {
+        cout << u.name << endl;
+    }
+
     return 0;
 }
