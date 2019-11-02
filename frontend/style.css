@@ -16,7 +16,7 @@ body{
 }
 
 .main{
-    padding-top: 50px;
+    padding-top: 120px;
     padding-bottom: 270px;
     width: 50%;
     max-width: 1000px;
@@ -118,6 +118,28 @@ body{
     animation: highlight-text-box 1.5s;
   }
 
+
+
+  @media screen and (max-width: 800px){
+      .header{
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        width: 100%;
+      }
+
+      .main{
+          width: 90%;
+      }
+
+      .textbox{
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        margin-left: 0;
+        border-radius: 0;
+      }
+  }
 
   
 

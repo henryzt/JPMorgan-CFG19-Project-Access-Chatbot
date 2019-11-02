@@ -116,6 +116,12 @@ var app = new Vue({
                                             upper: this.userInfo.acceptableFinanceRange
                                         }
         console.log(this.userInfo)
+        axios.post('http://127.0.0.1:8080/register', this.userInfo)
+            .then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
     }
 
   }
