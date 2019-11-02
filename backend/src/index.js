@@ -9,7 +9,8 @@ import createLogger from './logger/logger';
 import debugLogger from './debug/debug-logger';
 
 // import createConnection from './persistence/database';
-import InMemoryDatabase from '../mock-data/in-memory-database';
+import { InMemoryDatabase, registerHandler } from '../mock-data/in-memory-database';
+import getInMemoryDatabaseHandler from '../mock-data/get-in-memory-db';
 
 import badRequestHandler from './error-handling/bad-request-handler';
 
@@ -38,9 +39,11 @@ const accessLogger = createLogger({
 app.use(accessLogger);
 
 // Mount routers
-const registrationPersistenceHandler = InMemoryDatabase.registerHandler;
-const registrationRouter = createRegistrationRouter(registrationPersistenceHandler);
+const registrationRouter = createRegistrationRouter(registerHandler(InMemoryDatabase));
 app.use('/register', registrationRouter);
+
+// In Memory DB debug endpoint
+app.get('/in-memory-db', getInMemoryDatabaseHandler(InMemoryDatabase));
 
 // Bad request handler for malformed JSON request.
 app.use(badRequestHandler);

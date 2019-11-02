@@ -12,6 +12,8 @@ const createRegistrationRouter = persistenceHandler => {
   const registrationHandler = createRegistrationHandler(persistenceHandler);
 
   registrationRouter.post('/', validate({ body: RegistrationInfoSchema }), registrationHandler);
+
+  return registrationRouter;
 };
 
 export default createRegistrationRouter;
