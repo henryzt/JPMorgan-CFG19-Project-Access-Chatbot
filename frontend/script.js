@@ -15,7 +15,8 @@ Vue.component('bubble', {
 var app = new Vue({
     el: '#app',
     data: {
-      bubbleList: []
+      bubbleList: [],
+      editing: false
     },
     methods: {
       
@@ -44,6 +45,7 @@ var app = new Vue({
         setTimeout(() => {
             app.bubbleList.pop()
             app.bubbleList.push(this.questions[this.currentQ]);
+            setTimeout(() => {app.editing = true}, 1500)
         }, 1500);
         
     }
