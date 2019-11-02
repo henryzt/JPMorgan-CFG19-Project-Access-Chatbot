@@ -46,7 +46,7 @@ let universityChecker = {
                         return uni;
                     }
                 }).slice(0, 6);
-                window.scrollTo({ top: 9000, behavior: 'smooth' })
+                scrollToBottom()
             }
         }, 1000)
     },
@@ -63,7 +63,7 @@ let universityChecker = {
 
         app.bubbleList.push(content);
 
-        window.scrollTo({ top: 9000, behavior: 'smooth' })
+        scrollToBottom()
     },
 
     question : [{content:"Any other university are you looking for?"}, {content: "Type any other university name for their full courses"}, {content:"What another one?"}],
@@ -73,7 +73,7 @@ let universityChecker = {
         this.checkUniTimer()
         let that = this
         app.bubbleList.push({isloading:true})
-        window.scrollTo({ top: 9000, behavior: 'smooth' })
+        scrollToBottom()
         this.questionNum++
         this.questionNum = this.questionNum >= 2? 0 : this.questionNum;
         //get typing effect
@@ -120,7 +120,7 @@ let universityChecker = {
                     let course = `${data[0]} - ${data[1]}`
                     console.log(course)
 
-                    setTimeout(() => { app.bubbleList.push({content:course});window.scrollTo({ top: 9000, behavior: 'smooth' }); }, counter*2*timeout)
+                    setTimeout(() => { app.bubbleList.push({content:course});scrollToBottom(); }, counter*2*timeout)
                     counter++
                 });
                     

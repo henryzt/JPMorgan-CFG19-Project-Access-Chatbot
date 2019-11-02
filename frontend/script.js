@@ -30,7 +30,7 @@ var app = new Vue({
             this.suggestion = null
             this.editing = false
             this.bubbleList.push({content:this.message, isclient:true})
-            window.scrollTo({ top: 9000, behavior: 'smooth' })
+            scrollToBottom()
             if(!this.userId){
                 registration.handleCurrent(this.message);
             }else{
@@ -42,3 +42,6 @@ var app = new Vue({
   })
 
 
+ function scrollToBottom(){
+    window.scrollTo({ top: 90000, behavior: 'smooth' })
+  }

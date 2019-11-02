@@ -34,13 +34,13 @@ let registration = {
         app.bubbleList.push(this.questions[this.currentQ]);
         app.suggestion = this.questions[this.currentQ].suggestion
     
-        window.scrollTo({ top: 9000, behavior: 'smooth' })
+        scrollToBottom()
     },
 
     goToNextQuestion: function(){
         
         app.bubbleList.push({isloading:true})
-        window.scrollTo({ top: 9000, behavior: 'smooth' })
+        scrollToBottom()
         
         //get typing effect
         setTimeout(() => {
