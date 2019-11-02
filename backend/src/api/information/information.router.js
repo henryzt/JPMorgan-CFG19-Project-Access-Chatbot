@@ -2,10 +2,12 @@ import express from 'express';
 
 import createGetSupportedUniversities from './get-supported-universities.handler';
 import createGetUniversityInfoHandler from './get-university-info.handler';
+import createGetCourseInfoHandler from './get-course-info.handler';
 
 const createInfoRouter = ({
   getSupportedUniversitiesPersistenceHandler,
-  getUniversityInfoPersistenceHandler
+  getUniversityInfoPersistenceHandler,
+  getCourseInfoPersistenceHandler
 }) => {
   const InfoRouter = express.Router();
 
@@ -20,6 +22,10 @@ const createInfoRouter = ({
   );
 
   InfoRouter.get('/university/:universityName', getUniversityInfoHandler);
+
+  const getCourseInfoHandler = createGetCourseInfoHandler(getCourseInfoPersistenceHandler);
+
+  InfoRouter.get('/university/:universityName/course/:courseName', getCourseInfoHandler);
 
   return InfoRouter;
 };
