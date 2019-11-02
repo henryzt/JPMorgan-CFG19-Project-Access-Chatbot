@@ -1,8 +1,14 @@
 import express from 'express';
 
 import createGetSupportedUniversities from './get-supported-universities.handler';
+import createGetUniversityInfoHandler from './get-university-info.handler';
+import createGetCourseInfoHandler from './get-course-info.handler';
 
-const createInfoRouter = ({ getSupportedUniversitiesPersistenceHandler }) => {
+const createInfoRouter = ({
+  getSupportedUniversitiesPersistenceHandler,
+  getUniversityInfoPersistenceHandler,
+  getCourseInfoPersistenceHandler
+}) => {
   const InfoRouter = express.Router();
 
   const supportedUniversitiesHandler = createGetSupportedUniversities(
@@ -10,6 +16,16 @@ const createInfoRouter = ({ getSupportedUniversitiesPersistenceHandler }) => {
   );
 
   InfoRouter.get('/supportedUniversities', supportedUniversitiesHandler);
+
+  const getUniversityInfoHandler = createGetUniversityInfoHandler(
+    getUniversityInfoPersistenceHandler
+  );
+
+  InfoRouter.get('/university/:universityName', getUniversityInfoHandler);
+
+  const getCourseInfoHandler = createGetCourseInfoHandler(getCourseInfoPersistenceHandler);
+
+  InfoRouter.get('/university/:universityName/course/:courseName', getCourseInfoHandler);
 
   return InfoRouter;
 };

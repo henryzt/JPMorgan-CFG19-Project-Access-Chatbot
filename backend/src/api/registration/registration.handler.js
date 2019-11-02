@@ -68,12 +68,12 @@ const RegistrationInfoSchema = {
 };
 
 const createRegistrationHandler = persistenceHandler => async (request, response) => {
-  const [status, data] = await registerUser(persistenceHandler)(request.body);
+  const [status, userId] = await registerUser(persistenceHandler)(request.body);
 
   switch (status) {
     case 'success': {
       response.status(201);
-      response.json(data);
+      response.json({ userId });
       break;
     }
     case 'bad-request': {
