@@ -86,12 +86,7 @@ so we can track which user is who.
 
 ```typescript
 interface SupportedUniversities {
-    supportedUniversities: List<UniversityInfo>
-}
-
-interface UniversityInfo {
-    universityName: string;
-    country: string;
+    supportedUniversities: List<string>
 }
 ```
 
@@ -109,13 +104,6 @@ interface UniversityInfo {
 interface UniversityInfo {
     universityName: string;
     country: string;
-    availableSponsorships: List<SponsorshipInfo>;
-}
-
-interface SponsorshipInfo {
-    sponsorshipName: string;
-    deductionAmount: uint;
-    details: string;
 }
 ```
 
@@ -140,7 +128,9 @@ interface CourseInfo {
 }
 ```
 
-## Match API
+## Match API (Not Yet Implemented)
+
+*A mock API  at `GET /match/ranked-courses`*.
 
 The Match API provides user tailored university and course recommendation.
 Based on the returned university and course, the API consumer can present this 
@@ -148,7 +138,7 @@ information to the end user in a easy-to-comprehend manner.
 
 Main endpoints:
 
-- Match universities: `GET /match/universities`
+- Match universities: `GET /match/universities` 
 - Match majors: `GET /match/majors`
 - Match courses: `GET /match/courses`
 
