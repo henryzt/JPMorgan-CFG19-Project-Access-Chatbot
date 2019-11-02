@@ -18,7 +18,8 @@ import {
   registerHandler,
   getSupportedUniversitiesHandler,
   getUniversityInfoHandler,
-  getCourseInfoHandler
+  getCourseInfoHandler,
+  getRankedCoursesHandler
 } from '../mock-data/in-memory-database';
 import getInMemoryDatabaseHandler from '../mock-data/get-in-memory-db';
 
@@ -27,6 +28,7 @@ import badRequestHandler from './error-handling/bad-request-handler';
 import createRegistrationRouter from './api/registration/registration.router';
 
 import createInfoRouter from './api/information/information.router';
+import createMatchRouter from './api/match/match.router';
 
 const app = express();
 
@@ -67,6 +69,11 @@ const infoRouter = createInfoRouter({
   getCourseInfoPersistenceHandler: getCourseInfoHandler(InMemoryDatabase)
 });
 app.use('/', infoRouter);
+
+const matchRouter = createMatchRouter({
+  getRankedCoursesPersistenceHandler: getRankedCoursesHandler(InMemoryDatabase)
+});
+app.use('/', matchRouter);
 
 // In Memory DB debug endpoint
 app.get('/in-memory-db', getInMemoryDatabaseHandler(InMemoryDatabase));
