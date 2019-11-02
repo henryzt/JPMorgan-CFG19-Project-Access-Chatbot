@@ -36,18 +36,18 @@ var app = new Vue({
 
   let registration = {
     questions: [
-               {content: "Hello! How can I help you with your uni application today?", bindData: "Query"},
-               {content: "No problem! First, could you tell me which country are you from?", bindData: "HomeCountry"},
+               {content: "Hello! How can I help you with your uni application today?", bindData: "query"},
+               {content: "No problem! First, could you tell me which country are you from?", bindData: "homeCountry"},
                {content: "Which country do you want to study in? It can be more than one!", continue: true},
                {content: "Just type and use comma to seperate them.", bindData: "TargetCountry"},
                {content: "What are the subjects you are currently studying? This will help us find your perfect match!", continue: true},
-               {content: "Just type and use comma to seperate them.", bindData: "Subject"},
+               {content: "Just type and use comma to seperate them.", bindData: "subjects"},
                {content: "Great Choice!", continue: true},
                {content: "Now the tricky part, what is your estimated grade of each subject?", continue: true},
-               {content: "Use comma to seperate them, respectively to the order of the subjects you entered above.", bindData: "Grade"},
-               {content: "Thanks. And what is the education system you are in?", bindData: "EducationType"},
-               {content: "Lastly, what's your preferred finance range?", bindData: "FinanceRange"},
-               {content: "And Finally, what's your age?", bindData: "Age"},
+               {content: "Use comma to seperate them, respectively to the order of the subjects you entered above.", bindData: "grades"},
+               {content: "Thanks. And what is the education system you are in?", bindData: "highestEducation"},
+               {content: "Lastly, what's your highest preferred finance range?", bindData: "acceptableFinanceRange"},
+               {content: "And Finally, what's your age?", bindData: "age"},
             ],
 
     userInfo: new Object(),
@@ -63,15 +63,17 @@ var app = new Vue({
 
     push:function(){
         this.currentQ++;
-        if(this.currentQ > this.questions.length - 1){
-            this.processResult()
-            return
-        }
+        
         app.bubbleList.push(this.questions[this.currentQ]);
         window.scrollTo({ top: 9000, behavior: 'smooth' })
     },
 
     goToNextQuestion: function(){
+        if(this.currentQ > this.questions.length - 1){
+            console.log("end")
+            this.processResult()
+            return
+        }
         app.bubbleList.push({isloading:true})
         window.scrollTo({ top: 9000, behavior: 'smooth' })
         
@@ -93,8 +95,23 @@ var app = new Vue({
         
     },
 
+    seperateComma: function(text){
+        return text.split(",").map(x => x.trim());
+    },
+
     processResult: function(){
-        app.bubbleList.push("Thank you! Just a moment while I am finding a best match for you...");
+        app.bubbleList.push({content:"Thank you! Just a moment while I am processing your information..."});
+        this.userInfo.TargetCountry = this.seperateComma(userInfo.TargetCountry)
+        this.userInfo.subjects = this.seperateComma(userInfo.subjects)
+        this.userInfo.grades = this.seperateComma(userInfo.grades)
+                                .map(function(e, i) {
+                                    return {grade: e,subject: userInfo.subjects[i]};
+                                });
+          
+        this.userInfo.acceptableFinanceRange = {
+                                            lower: 0,
+                                            upper: userInfo.acceptableFinanceRange
+                                        }
     }
 
   }
