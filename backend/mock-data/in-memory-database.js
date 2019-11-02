@@ -31,7 +31,8 @@ const InMemoryDatabase = {
   data: {
     uuid: 1,
     users: MockUsers,
-    universities: MockUniversities
+    universities: MockUniversities,
+    unversityCourseInfo: []
   }
 };
 

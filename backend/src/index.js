@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import express from 'express';
 
 import bodyParser from 'body-parser';
@@ -23,6 +25,10 @@ import createRegistrationRouter from './api/registration/registration.router';
 import createInfoRouter from './api/information/information.router';
 
 const app = express();
+
+// Mock data set - project root 'dataset.json'
+const dataSet = JSON.parse(fs.readFileSync('../dataset.json', 'utf8'));
+InMemoryDatabase.data.unversityCourseInfo = dataSet;
 
 // Body parser for parsing request bodies.
 app.use(bodyParser.json());
