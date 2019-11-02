@@ -41,7 +41,7 @@ var app = new Vue({
                {content: "Hello! How can I help you with your uni application today?", bindData: "query"},
                {content: "No problem! First, could you tell me which country are you from?", bindData: "homeCountry"},
                {content: "Which country do you want to study in? It can be more than one!", continue: true},
-               {content: "Just type and use comma to seperate them.", bindData: "targetCountry"},
+               {content: "Just type and use comma to seperate them.", bindData: "targetCountries"},
                {content: "What are the subjects you are currently studying? This will help us find your perfect match!", continue: true},
                {content: "Just type and use comma to seperate them.", bindData: "subjects"},
                {content: "Great Choice!", continue: true},
@@ -104,13 +104,13 @@ var app = new Vue({
         let that = this;
         app.editing = false;
         app.bubbleList.push({content:"Thank you! Just a moment while I am processing your information..."});
-        this.userInfo.targetCountry = this.seperateComma(this.userInfo.targetCountry)
+        this.userInfo.targetCountries = this.seperateComma(this.userInfo.targetCountries)
         this.userInfo.subjects = this.seperateComma(this.userInfo.subjects)
         this.userInfo.grades = this.seperateComma(this.userInfo.grades)
                                 .map(function(e, i) {
                                     return {grade: e, subject: that.userInfo.subjects[i]};
                                 });
-        
+        this.userInfo.age = 18
         delete this.userInfo.query;
         this.userInfo.acceptableFinanceRange = {
                                             lower: 0,
