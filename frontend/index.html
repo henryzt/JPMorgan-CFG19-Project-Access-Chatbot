@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project Access Uni Knowledge Base</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-deep_orange.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <div class="header">
+            <img src="img/logo.png" class="logo" alt="Logo">
+        </div>
+
+        <div class="main">
+
+            <div v-for="item in bubbleList">
+                <bubble :isclient="item.isclient" :content="item.content" :isloading="item.isloading"></bubble>
+            </div>
+            <div id="empty"></div>
+
+        </div>
+
+        <div :class="{textbox:true, text_box_highlight: editing}">
+            <form @submit.prevent="submitForm">
+                <div style="padding:0 30px;">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" :disabled="!editing" type="text" id="msg" v-model="message">
+                        <label class="mdl-textfield__label" for="msg">Type your message here…</label>
+                    </div>
+                    <button type="submit" :disabled="!editing" class="mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
