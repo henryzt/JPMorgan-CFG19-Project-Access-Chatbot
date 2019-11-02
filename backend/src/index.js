@@ -8,24 +8,24 @@ import createLogger from './logger/logger';
 
 import debugLogger from './debug/debug-logger';
 
-import createConnection from './persistence/database';
+// import createConnection from './persistence/database';
+import InMemoryDatabase from '../mock-data/in-memory-database';
 
 import badRequestHandler from './error-handling/bad-request-handler';
 
-import registrationRouter from './api/registration/registration.router';
+import createRegistrationRouter from './api/registration/registration.router';
 
 const app = express();
 
 // Body parser for parsing request bodies.
 app.use(bodyParser.json());
 
-// eslint-disable-next-line no-unused-vars
-const connection = createConnection({
-  uri: config.get('database.host') + config.get('database.databaseName'),
-  poolSize: config.get('database.poolSize'),
-  userName: config.get('database.userName'),
-  password: config.get('database.password')
-});
+// const connection = createConnection({
+//   uri: config.get('database.host') + config.get('database.databaseName'),
+//   poolSize: config.get('database.poolSize'),
+//   userName: config.get('database.userName'),
+//   password: config.get('database.password')
+// });
 
 const accessLogger = createLogger({
   fileName: config.get('logging.fileName'),
@@ -37,7 +37,9 @@ const accessLogger = createLogger({
 
 app.use(accessLogger);
 
-// Mount routes
+// Mount routers
+const registrationPersistenceHandler = InMemoryDatabase.registerHandler;
+const registrationRouter = createRegistrationRouter(registrationPersistenceHandler);
 app.use('/register', registrationRouter);
 
 // Bad request handler for malformed JSON request.

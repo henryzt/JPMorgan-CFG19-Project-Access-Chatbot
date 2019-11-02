@@ -1,3 +1,5 @@
+import registerUser from './registration.persistence';
+
 const RegistrationInfoSchema = {
   type: 'object',
   properties: {
@@ -65,9 +67,29 @@ const RegistrationInfoSchema = {
   }
 };
 
-const registrationHandler = (request, response) => {
-  response.status(200);
-  response.json(request.body);
+const createRegistrationHandler = persistenceHandler => async (request, response) => {
+  const [status, data] = await registerUser(persistenceHandler)(request.body);
+
+  switch (status) {
+    case 'success': {
+      response.status(201);
+      response.json(data);
+      break;
+    }
+    case 'bad-request': {
+      response.status(400);
+      response.json({
+        errorType: '@error/bad-request'
+      });
+      break;
+    }
+    default: {
+      response.status(500);
+      response.json({
+        errorType: '@error/internal-server-error'
+      });
+    }
+  }
 };
 
-export { registrationHandler, RegistrationInfoSchema };
+export { createRegistrationHandler, RegistrationInfoSchema };
