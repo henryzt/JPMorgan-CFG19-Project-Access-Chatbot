@@ -22,7 +22,8 @@ body{
 }
 
 .bubble{
-    border-radius:20px;
+    line-height: 30px;
+    border-radius:30px;
     padding: 10px 30px;
     display:inline-block;
     max-width: 70%;
@@ -59,3 +60,21 @@ body{
 .conversation{
     margin: 10px 0;
 }
+
+.textbox{
+    width:400px;
+    height:56px;
+    background:white;
+    box-shadow:0px 1px 6px rgba(0,0,0,0.16);
+    border-radius:50px;
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    margin-left: -200px;
+
+}
+
+.mdl-textfield{
+    margin-top: -6px;
+}
+
