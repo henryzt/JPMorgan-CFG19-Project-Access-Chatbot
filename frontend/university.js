@@ -25,24 +25,10 @@ let universityChecker = {
     course: null,
 
     handleCurrent:function(msg){
-        switch(this.questionNum){
-            case 0:
-            this.university = msg
-            break;
-
-            case 1:
-            if(msg.toLowerCase() == "no"){
-                this.questionNum = 2
-            }
-            break;
-
-            case 2:
-            this.course = msg
-            break;
-            
+        if(msg){
+            this.requestUniversity(msg)
         }
         
-        setTimeout(() => {this.goToNextQuestion()}, 1*timeout)
     },
 
     push:function(content){
@@ -52,7 +38,7 @@ let universityChecker = {
         window.scrollTo({ top: 9000, behavior: 'smooth' })
     },
 
-    question : [{content:"Any other university are you looking for?"}, {content: "would you like to look at some of their courses?"}, {content:"What course are you looking for?"}],
+    question : [{content:"Any other university are you looking for?"}, {content: "Type any university name for their full courses"}, {content:"What another one?"}],
     questionNum : 2,
 
     goToNextQuestion: function(overrideQ){
@@ -72,5 +58,35 @@ let universityChecker = {
         }, 12*timeout);
         
     },
+
+    requestUniversity: function(uni){
+        let counter = 1;
+        axios.get('http://localhost:8080/university/' + encodeURIComponent(uni))
+            .then((response) => {
+                console.log(response.data.data);
+                if( !response.data.data || response.data.data.length == 0){
+                    app.bubbleList.push({content:"Sorry, we couldn't find that university"});
+                    setTimeout(() => {this.goToNextQuestion()}, 1*timeout)
+                    return
+                }
+
+                app.bubbleList.push({content:response.data.data[0][0]})
+
+
+                response.data.data[0][1].forEach(function(data) {
+                    console.log(data)
+                    let course = `${data[0]} - ${data[1]}`
+                    console.log(course)
+
+                    setTimeout(() => { app.bubbleList.push({content:course}) }, counter*2*timeout)
+                    counter++
+                });
+                    
+                setTimeout(() => {this.goToNextQuestion()}, (counter+2)*2*timeout)
+
+            }, (error) => {
+                console.log(error);
+            });
+    }
   }
 
