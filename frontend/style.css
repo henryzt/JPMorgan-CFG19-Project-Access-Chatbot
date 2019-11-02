@@ -29,6 +29,7 @@ body{
     max-width: 70%;
     margin-top: 7px;
     animation: 1s ease-out 0s fadeIn;
+    transition: width 1s;
 }
 
 .bubble_server{

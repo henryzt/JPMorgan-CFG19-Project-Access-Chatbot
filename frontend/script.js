@@ -2,8 +2,8 @@ Vue.component('bubble', {
     props: ['sender', 'content','isloading'],
     template: `
     <div class="conversation" :class="{client_right_align:sender=='client'}">
-        <img src="img/icon.png" v-if="sender=='server'" class="icon">
-        <div :class="{bubble:true, bubble_server:sender=='server', bubble_client:sender=='client', bubble_loading:isloading}">
+        <img src="img/icon.png" v-if="sender!='client'" class="icon">
+        <div :class="{bubble:true, bubble_server:sender!='client', bubble_client:sender=='client', bubble_loading:isloading}">
             {{isloading ? 'typing...' : content}}
         </div>
     </div>
@@ -14,7 +14,7 @@ Vue.component('bubble', {
 var app = new Vue({
     el: '#app',
     data: {
-      test: "hello world"
+      bubbleList: []
     },
     methods: {
       
@@ -34,11 +34,19 @@ var app = new Vue({
                {content: "Finally, what's your age?", bindData: "Age"},
             ],
 
-    
+    currentQ: -1,
+
+    goToNextQuestion: function(){
+        app.bubbleList.push({isloading:true})
+        this.currentQ++;
+        //get typing effect
+        setTimeout(() => {
+            app.bubbleList.pop()
+            app.bubbleList.push(this.questions[this.currentQ]);
+        }, 3000);
+        
+    }
 
   }
 
-
-  function goToNextQuestion(){
-
-  }
+  registration.goToNextQuestion()

@@ -19,10 +19,11 @@
         </div>
 
         <div class="main">
-            <bubble sender="" content=" "></bubble>
-            <bubble sender="client" content="I don't need your help"></bubble>
-            <bubble sender="server" content="No problem! Can I have your name please?"></bubble>
-            <bubble sender="server" content="a" isloading="true"></bubble>
+
+            <div v-for="item in bubbleList">
+                <bubble :sender="item.sender" :content="item.content" :isloading="item.isloading"></bubble>
+            </div>
+
         </div>
 
         <div class="textbox">
