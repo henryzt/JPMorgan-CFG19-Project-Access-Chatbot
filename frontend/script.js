@@ -58,12 +58,15 @@ var app = new Vue({
 
     goToNextQuestion: function(){
         app.bubbleList.push({isloading:true})
+        window.scrollTo(0,document.body.scrollHeight);
         this.currentQ++;
         //get typing effect
         setTimeout(() => {
             app.bubbleList.pop()
             app.bubbleList.push(this.questions[this.currentQ]);
-            setTimeout(() => {app.editing = true}, 1500)
+            
+            setTimeout(() => {app.editing = true;}, 400)
+            setTimeout(() => {document.getElementById("msg").focus()}, 600)
         }, 1500);
         
     }
