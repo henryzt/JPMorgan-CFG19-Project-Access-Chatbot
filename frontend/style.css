@@ -30,6 +30,7 @@ body{
     margin-top: 7px;
     animation: 1s ease-out 0s fadeIn;
     transition: width 1s;
+    overflow-wrap: break-word;
 }
 
 .bubble_server{

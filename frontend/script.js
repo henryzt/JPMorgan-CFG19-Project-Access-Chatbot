@@ -1,9 +1,9 @@
 Vue.component('bubble', {
-    props: ['sender', 'content','isloading'],
+    props: ['isclient', 'content','isloading'],
     template: `
-        <div class="conversation" :class="{client_right_align:sender=='client'}" >
-            <img src="img/icon.png" v-if="sender!='client'" class="icon">
-                <div :class="{bubble:true, bubble_server:sender!='client', bubble_client:sender=='client', bubble_loading:isloading, bubble_bounce:!isloading && sender!='client'}">
+        <div class="conversation" :class="{client_right_align:isclient}" >
+            <img src="img/icon.png" v-if="!isclient" class="icon">
+                <div :class="{bubble:true, bubble_server:!isclient, bubble_client:isclient, bubble_loading:isloading, bubble_bounce:!isloading && !isclient}">
                     {{isloading ? 'typing...' : content}}
                 </div>
         </div>
@@ -23,7 +23,7 @@ var app = new Vue({
     methods: {
         submitForm: function(){
             this.editing = false
-            this.bubbleList.push({content:this.message, sender:'client'})
+            this.bubbleList.push({content:this.message, isclient:true})
             if(!this.userId){
                 registration.handleCurrent(this.message);
             }
@@ -51,7 +51,8 @@ var app = new Vue({
 
     handleCurrent:function(msg){
         this.userInfo[this.questions[this.currentQ].bindData] = msg;
-        this.goToNextQuestion();
+        setTimeout(() => {this.goToNextQuestion()}, 1500)
+        
         
     },
 
