@@ -2,6 +2,8 @@ import fs from 'fs';
 
 import express from 'express';
 
+import cors from 'cors';
+
 import bodyParser from 'body-parser';
 
 import config from './config/config';
@@ -27,6 +29,9 @@ import createRegistrationRouter from './api/registration/registration.router';
 import createInfoRouter from './api/information/information.router';
 
 const app = express();
+
+// CORS
+app.use(cors());
 
 // Mock data set - project root 'dataset.json'
 const dataSet = JSON.parse(fs.readFileSync(`${__dirname}/../../dataset.json`, 'utf8'));
