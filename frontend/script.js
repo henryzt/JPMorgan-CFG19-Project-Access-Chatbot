@@ -41,7 +41,7 @@ var app = new Vue({
                {content: "Hello! How can I help you with your uni application today?", bindData: "query"},
                {content: "No problem! First, could you tell me which country are you from?", bindData: "homeCountry"},
                {content: "Which country do you want to study in? It can be more than one!", continue: true},
-               {content: "Just type and use comma to seperate them.", bindData: "TargetCountry"},
+               {content: "Just type and use comma to seperate them.", bindData: "targetCountry"},
                {content: "What are the subjects you are currently studying? This will help us find your perfect match!", continue: true},
                {content: "Just type and use comma to seperate them.", bindData: "subjects"},
                {content: "Great Choice!", continue: true},
@@ -104,16 +104,17 @@ var app = new Vue({
         let that = this;
         app.editing = false;
         app.bubbleList.push({content:"Thank you! Just a moment while I am processing your information..."});
-        this.userInfo.TargetCountry = this.seperateComma(this.userInfo.TargetCountry)
+        this.userInfo.targetCountry = this.seperateComma(this.userInfo.targetCountry)
         this.userInfo.subjects = this.seperateComma(this.userInfo.subjects)
         this.userInfo.grades = this.seperateComma(this.userInfo.grades)
                                 .map(function(e, i) {
                                     return {grade: e, subject: that.userInfo.subjects[i]};
                                 });
-          
+        
+        delete this.userInfo.query;
         this.userInfo.acceptableFinanceRange = {
                                             lower: 0,
-                                            upper: this.userInfo.acceptableFinanceRange
+                                            upper: 10000
                                         }
         console.log(this.userInfo)
         axios.post('http://127.0.0.1:8080/register', this.userInfo)
