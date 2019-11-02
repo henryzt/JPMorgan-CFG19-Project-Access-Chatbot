@@ -27,8 +27,8 @@ import createInfoRouter from './api/information/information.router';
 const app = express();
 
 // Mock data set - project root 'dataset.json'
-const dataSet = JSON.parse(fs.readFileSync('../dataset.json', 'utf8'));
-InMemoryDatabase.data.unversityCourseInfo = dataSet;
+const dataSet = JSON.parse(fs.readFileSync(`${__dirname}/../../dataset.json`, 'utf8'));
+InMemoryDatabase.data.universityCourseInfo = dataSet;
 
 // Body parser for parsing request bodies.
 app.use(bodyParser.json());

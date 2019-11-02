@@ -20,19 +20,11 @@ const MockUsers = [
   }
 ];
 
-const MockUniversities = [
-  {
-    universityName: 'University College London',
-    country: 'United Kingdom'
-  }
-];
-
 const InMemoryDatabase = {
   data: {
     uuid: 1,
     users: MockUsers,
-    universities: MockUniversities,
-    unversityCourseInfo: []
+    universityCourseInfo: {}
   }
 };
 
@@ -68,7 +60,7 @@ const registerHandler = db => async ({
 };
 
 const getSupportedUniversitiesHandler = db => async () => {
-  return ['success', db.data.universities.map(universityInfo => universityInfo.universityName)];
+  return ['success', Object.keys(db.data.universityCourseInfo)];
 };
 
 export { InMemoryDatabase, registerHandler, getSupportedUniversitiesHandler };
