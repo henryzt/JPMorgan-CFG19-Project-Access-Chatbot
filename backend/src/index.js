@@ -14,7 +14,9 @@ import debugLogger from './debug/debug-logger';
 import {
   InMemoryDatabase,
   registerHandler,
-  getSupportedUniversitiesHandler
+  getSupportedUniversitiesHandler,
+  getUniversityInfoHandler,
+  getCourseInfoHandler
 } from '../mock-data/in-memory-database';
 import getInMemoryDatabaseHandler from '../mock-data/get-in-memory-db';
 
@@ -55,7 +57,9 @@ const registrationRouter = createRegistrationRouter(registerHandler(InMemoryData
 app.use('/register', registrationRouter);
 
 const infoRouter = createInfoRouter({
-  getSupportedUniversitiesPersistenceHandler: getSupportedUniversitiesHandler(InMemoryDatabase)
+  getSupportedUniversitiesPersistenceHandler: getSupportedUniversitiesHandler(InMemoryDatabase),
+  getUniversityInfoPersistenceHandler: getUniversityInfoHandler(InMemoryDatabase),
+  getCourseInfoPersistenceHandler: getCourseInfoHandler(InMemoryDatabase)
 });
 app.use('/', infoRouter);
 

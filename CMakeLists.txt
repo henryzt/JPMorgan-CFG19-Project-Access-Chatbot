@@ -31,6 +31,6 @@ endif()
 
 add_subdirectory(opt)
 
-add_executable(team-14 main.cpp json.hpp)
+add_executable(team-14 main.cpp json.hpp json.hpp uni_list.hpp uni.hpp test.cpp)
 target_link_libraries(team-14 ${CPR_LIBRARIES})
 include_directories(${CPR_INCLUDE_DIRS} ${JSON_INCLUDE_DIRS})

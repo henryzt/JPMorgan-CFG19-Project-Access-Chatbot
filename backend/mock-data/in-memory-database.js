@@ -63,4 +63,37 @@ const getSupportedUniversitiesHandler = db => async () => {
   return ['success', Object.keys(db.data.universityCourseInfo)];
 };
 
-export { InMemoryDatabase, registerHandler, getSupportedUniversitiesHandler };
+const universityNameMatches = universityName => ([name, _value]) =>
+  name.toLowerCase().trim() === universityName.toLowerCase().trim();
+
+const getUniversityInfoHandler = db => async universityName => {
+  const entries = Object.entries(db.data.universityCourseInfo);
+
+  return ['success', entries.filter(universityNameMatches(universityName))];
+};
+
+const courseNameMatches = targetCourseName => ([courseName]) =>
+  targetCourseName &&
+  courseName &&
+  targetCourseName.toLowerCase().trim() === courseName.toLowerCase().trim();
+
+const getCourseInfoHandler = db => async ({ targetUniversityName, targetCourseName }) => {
+  const universityEntries = Object.entries(db.data.universityCourseInfo);
+  const [universityInfo] = universityEntries.filter(universityNameMatches(targetUniversityName));
+  const [universityName, courses] = universityInfo;
+
+  const course = courses ? courses.filter(courseNameMatches(targetCourseName)) : [];
+
+  const [courseInfo] = course;
+  const [courseName, qualificationType, duration] = courseInfo;
+
+  return ['success', { universityName, courseName, qualificationType, duration }];
+};
+
+export {
+  InMemoryDatabase,
+  registerHandler,
+  getSupportedUniversitiesHandler,
+  getUniversityInfoHandler,
+  getCourseInfoHandler
+};
