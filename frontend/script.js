@@ -26,12 +26,15 @@ var app = new Vue({
     methods: {
         submitForm: function(msg){
             if(typeof msg == 'string') this.message = msg;
+            if(this.message == "skip") {this.userId=-1;}
             this.suggestion = null
             this.editing = false
             this.bubbleList.push({content:this.message, isclient:true})
             window.scrollTo({ top: 9000, behavior: 'smooth' })
             if(!this.userId){
                 registration.handleCurrent(this.message);
+            }else{
+                universityChecker.handleCurrent(this.message);
             }
             this.message = ""
         }
@@ -42,7 +45,16 @@ var app = new Vue({
 
 
   let universityChecker = {
+    university: null,
+    course: null,
+
     handleCurrent:function(msg){
+        if(this.questionNum == 0){
+            this.university = msg
+        }else{
+            this.course = msg
+            
+        }
         
         setTimeout(() => {this.goToNextQuestion()}, 1*timeout)
     },
@@ -55,7 +67,7 @@ var app = new Vue({
     },
 
     question : [{content:"What university are you looking for?"}, {content:"What course are you looking for?"}],
-    questionNum : 0,
+    questionNum : 1,
 
     goToNextQuestion: function(overrideQ){
         
@@ -167,7 +179,7 @@ var app = new Vue({
         axios.post('http://127.0.0.1:8080/register', this.userInfo)
             .then((response) => {
                 console.log(response);
-                
+
                 setTimeout(() => {
                     app.userId = response.data.userId
                     app.bubbleList = []
