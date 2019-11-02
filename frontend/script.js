@@ -1,4 +1,4 @@
-const timeout = 0
+const timeout = 100
 
 Vue.component('bubble', {
     props: ['isclient', 'content','isloading'],
@@ -21,9 +21,12 @@ var app = new Vue({
       userId: null,
       editing: false,
       message: "",
+      suggestion: null
     },
     methods: {
-        submitForm: function(){
+        submitForm: function(msg){
+            msg? this.message = msg : null;
+            this.suggestion = null
             this.editing = false
             this.bubbleList.push({content:this.message, isclient:true})
             window.scrollTo({ top: 9000, behavior: 'smooth' })
@@ -36,9 +39,14 @@ var app = new Vue({
   })
 
 
+
+
+
+
+
   let registration = {
     questions: [
-               {content: "Hello! How can I help you with your uni application today?", bindData: "query"},
+               {content: "Hello! How can I help you with your uni application today?", bindData: "query", suggestion: ["choosing my future uni", "find any universities and courses that suits me", "know more about my desired uni"]},
                {content: "No problem! First, could you tell me which country are you from?", bindData: "homeCountry"},
                {content: "Which country do you want to study in? It can be more than one!", continue: true},
                {content: "Just type and use comma to seperate them.", bindData: "targetCountries"},
@@ -70,6 +78,8 @@ var app = new Vue({
             return
         }
         app.bubbleList.push(this.questions[this.currentQ]);
+        app.suggestion = this.questions[this.currentQ].suggestion
+    
         window.scrollTo({ top: 9000, behavior: 'smooth' })
     },
 

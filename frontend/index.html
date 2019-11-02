@@ -26,7 +26,21 @@
             </div>
             <div id="empty"></div>
 
+
+            <div style="margin-top: 300px;" v-if="suggestion">
+                <div class="indicator_text">You might wanna select...</div>
+                <div v-for="(item, index) in suggestion">
+                    <div class="conversation client_right_align">
+                        <div class="bubble bubble_suggestion" @click="submitForm(item)">{{item}}</div>
+                    </div>
+                </div>
+                <br>
+                <div class="indicator_text">...Or type anything below</div>
+            </div>
         </div>
+
+        
+
 
         <div :class="{textbox:true, text_box_highlight: editing}">
             <form @submit.prevent="submitForm">
