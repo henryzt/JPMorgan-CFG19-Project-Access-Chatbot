@@ -135,13 +135,7 @@ Get info for a course for a specified university.
 interface CourseInfo {
     universityName: string;
     courseName: string;
-    qualificationType: QualificationType;
-    // Recognized entry requirements
-    entryRequirements: List<EntryRequirement>;
-    financeRequirements: FinanceRequirement;
-    requiresInterview: boolean;
-    requiresEntranceTests: boolean;
-    entranceTests: List<EntranceTestInfo>;
+		duration: uint;   	
 }
 
 type QualificationType = "Bachelors" | "Masters" | "other";
