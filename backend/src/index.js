@@ -9,12 +9,18 @@ import createLogger from './logger/logger';
 import debugLogger from './debug/debug-logger';
 
 // import createConnection from './persistence/database';
-import { InMemoryDatabase, registerHandler } from '../mock-data/in-memory-database';
+import {
+  InMemoryDatabase,
+  registerHandler,
+  getSupportedUniversitiesHandler
+} from '../mock-data/in-memory-database';
 import getInMemoryDatabaseHandler from '../mock-data/get-in-memory-db';
 
 import badRequestHandler from './error-handling/bad-request-handler';
 
 import createRegistrationRouter from './api/registration/registration.router';
+
+import createInfoRouter from './api/information/information.router';
 
 const app = express();
 
@@ -41,6 +47,11 @@ app.use(accessLogger);
 // Mount routers
 const registrationRouter = createRegistrationRouter(registerHandler(InMemoryDatabase));
 app.use('/register', registrationRouter);
+
+const infoRouter = createInfoRouter({
+  getSupportedUniversitiesPersistenceHandler: getSupportedUniversitiesHandler(InMemoryDatabase)
+});
+app.use('/', infoRouter);
 
 // In Memory DB debug endpoint
 app.get('/in-memory-db', getInMemoryDatabaseHandler(InMemoryDatabase));
