@@ -69,7 +69,7 @@ int main () {
         }
     }
 
-    print_unis(unis);
+    //print_unis(unis);
 
     nlohmann::json dataset_json;
     for (auto uni : unis) {
