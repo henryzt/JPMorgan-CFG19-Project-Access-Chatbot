@@ -77,6 +77,10 @@ body{
     animation: 1s ease-out 0s fadeIn;
 }
 
+.bubble_loading{
+    animation: fadeIn 1s ease-in-out 0s infinite alternate;
+}
+
 .mdl-textfield{
     margin-top: -6px;
 }
