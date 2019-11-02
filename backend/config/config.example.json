@@ -1,0 +1,11 @@
+{
+  "ip": "127.0.0.1",
+  "port": 8080,
+  "database": {
+    "host": "mongodb://127.0.0.1/",
+    "databaseName": "project_access",
+    "userName": "root",
+    "password": "password",
+    "poolSize": 4
+  }
+}

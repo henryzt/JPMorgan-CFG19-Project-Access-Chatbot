@@ -1,18 +1,149 @@
 body{
     background:rgba(248,248,248);
+    background:linear-gradient(180deg,#e0dcc04f 0%,#f5f8fa 100%);
+    background-attachment: fixed;
 }
 
 .header{
-    width:230px;
-    height:70px;
+    display: inline-block;
     background:white;
     box-shadow:0px 3px 6px rgba(0,0,0,0.13);
     border-radius:50px;
+    padding: 20px;
+    position: fixed;
+    top: 30px;
+    left: 30px;
 }
 
-.header .logo{
-    background-image: url('img/logo.png');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
+.main{
+    padding-top: 50px;
+    padding-bottom: 270px;
+    width: 50%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
+
+.bubble{
+    line-height: 30px;
+    border-radius:30px;
+    padding: 10px 30px;
+    display:inline-block;
+    max-width: 70%;
+    margin-top: 7px;
+    animation: 1s ease-out 0s fadeIn;
+    transition: width 1s;
+    overflow-wrap: break-word;
+}
+
+.bubble_server{
+    background: white;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.14);
+}
+
+.bubble_client{
+    background:linear-gradient(123deg,rgba(253,200,48,1) 0%,rgba(255,95,109,1) 100%);
+    box-shadow:0px 3px 10px rgba(255,216,0,0.14);
+    color:white;
+    font-weight:bold;
+    animation: 1s ease-out 0s flyUp;
+}
+
+.client_right_align{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo{
+    width: 210px;
+
+}
+.icon{
+    width: 40px;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.conversation{
+    margin: 10px 0;
+}
+
+.textbox{
+    width:400px;
+    height:56px;
+    background:white;
+    box-shadow:0px 1px 6px rgba(0,0,0,0.16);
+    border-radius:50px;
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    margin-left: -200px;
+    transition: 1s;
+    animation: 1s ease-out 0s fadeIn;
+}
+
+.bubble_loading{
+    animation: fadeIn 1s ease-in-out 0s infinite alternate;
+    color: grey;
+    text-emphasis: itali;
+}
+
+.mdl-textfield{
+    margin-top: -6px;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes flyUp {
+	0% {
+        opacity: 0;
+		margin-top: 200px;
+	}
+	100% {
+        opacity: 1;
+        margin-top: inherit;
+	}
+}
+
+.bubble_bounce {
+    animation: bounce-in .5s;
+  }
+.text_box_highlight {
+    animation: highlight-text-box 1.5s;
+  }
+
+
+  
+
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes highlight-text-box {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+      box-shadow: 0px 1px 30px rgba(255, 169, 77, 0.3);
+
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0px 1px 6px rgba(0,0,0,0.16);
+    }
+  }
